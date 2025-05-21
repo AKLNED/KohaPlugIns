@@ -1,24 +1,23 @@
 package com.KohaPlugins.dao;
 
 import com.KohaPlugins.service.KohaPatronService;
-import com.KohaPlugins.util.dbConn;
+import com.KohaPlugins.service.OracleMemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import oracle.jdbc.OracleTypes;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
 
 @WebServlet("/StudentLookupServlet")
 public class StudentLookupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final KohaPatronService kohaService = new KohaPatronService();
+    private final OracleMemberService oracleService = new OracleMemberService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,40 +27,43 @@ public class StudentLookupServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        Connection conn = null;
-        CallableStatement stmt = null;
-        ResultSet rs = null;
-
         try {
-            // Step 1: Establish database connection
-            try {
-                conn = dbConn.getOracleConnection();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace(out);
-                out.println("<p>Error establishing database connection: " + e.getMessage() + "</p>");
-                return;
-            }
+            // Step 1: Get student info from Oracle via the service
+            JSONObject oracleStudent = oracleService.getStudentInfoById(studentId);
 
-            // Step 2: Call the fetch_student_info function
-            String function = "{ ? = call kohaPlugin.fetch_student_info(?)}";
-            stmt = conn.prepareCall(function);
-            stmt.registerOutParameter(1, OracleTypes.CURSOR);
-            stmt.setString(2, studentId);
-            stmt.execute();
-            rs = (ResultSet) stmt.getObject(1);
+            if (oracleStudent != null) {
+                
+            	// Print all information from Oracle database
+                /*
+                 * out.println("<h3>Oracle Student Information</h3>");
+                out.println("<ol>");
+                for (String key : oracleStudent.keySet()) {
+                    out.println("<li><strong>" + key + ":</strong> " + oracleStudent.get(key) + "</li>");
+                }
+                out.println("</ol>");
+                */
 
-            if (rs.next()) {
-                String firstname = rs.getString("firstname");
-                String surname = rs.getString("surname");
-                String email = rs.getString("email");
-                String categorycode = rs.getString("categorycode");
-                String branchcode = rs.getString("branchcode");
-                String patronAttributes = rs.getString("patron_attributes");
+                String studentID = oracleStudent.optString("STUDENTID");
+                //out.println("<p>oracleStudentID: " + studentID + "</p>");
+                String firstname = oracleStudent.optString("FIRSTNAME");
+                String surname = oracleStudent.optString("SURNAME");
+                String address = oracleStudent.optString("ADDRESS");
+                String address2 = oracleStudent.optString("ADDRESS2");
+                String phone = oracleStudent.optString("PHONE");
+                String mobile = oracleStudent.optString("MOBILE");
+                String email = oracleStudent.optString("EMAIL");
+                String cardnumber = oracleStudent.optString("CARDNUMBER");
+                String category_id = oracleStudent.optString("CATEGORYCODE");
+                String library_id = oracleStudent.optString("BRANCHCODE");
+                String dateenrolled = oracleStudent.optString("DATEENROLLED");
+                String userid = oracleStudent.optString("USERID");
+                String password = oracleStudent.optString("PASSWORD");
+                String patronAttributes = oracleStudent.optString("PATRON_ATTRIBUTES");
 
                 // Extract rollNo from Oracle attributes
                 String rollNo = extractFromOracleAttributes(patronAttributes, "PAT_NO");
 
-                // Step 3: Check Koha for patron
+                // Step 2: Check Koha for patron
                 JSONObject kohaPatron = kohaService.getKohaPatronByCardNumber(studentId);
 
                 if (kohaPatron != null) {
@@ -84,41 +86,42 @@ public class StudentLookupServlet extends HttpServlet {
                         out.println("</form>");
                     }
                 } else {
-                    // Step 4: Prompt user to insert new patron
+                    // Step 3: Prompt user to insert new patron
                     out.println("<p>Student does not exist in the library database. Do you want to insert?</p>");
                     out.println("<form action='InsertKohaServlet' method='POST'>");
-                    out.println("<p>Student ID: " + studentId + "</p>");
                     out.println("<input type='hidden' name='studentId' value='" + studentId + "'>");
-                    out.println("<p>First name: " + firstname + "</p>");
                     out.println("<input type='hidden' name='firstname' value='" + firstname + "'>");
-                    out.println("<p>Surname: " + surname + "</p>");
                     out.println("<input type='hidden' name='surname' value='" + surname + "'>");
-                    out.println("<p>Email: " + email + "</p>");
+                    out.println("<input type='hidden' name='address' value='" + address + "'>");
+                    out.println("<input type='hidden' name='address2' value='" + address2 + "'>");
+                    out.println("<input type='hidden' name='phone' value='" + phone + "'>");
+                    out.println("<input type='hidden' name='mobile' value='" + mobile + "'>");
                     out.println("<input type='hidden' name='email' value='" + email + "'>");
-                    out.println("<p>Category: " + categorycode + "</p>");
-                    out.println("<input type='hidden' name='category' value='" + categorycode + "'>");
-                    out.println("<p>Branch: " + branchcode + "</p>");
-                    out.println("<input type='hidden' name='branch' value='" + branchcode + "'>");
-                    out.println("<p>Patron Attributes: " + patronAttributes + "</p>");
+                    out.println("<input type='hidden' name='cardnumber' value='" + cardnumber + "'>");
+                    out.println("<input type='hidden' name='category' value='" + category_id + "'>");
+                    out.println("<input type='hidden' name='branch' value='" + library_id + "'>");
+                    out.println("<input type='hidden' name='dateenrolled' value='" + dateenrolled + "'>");
+                    out.println("<input type='hidden' name='userid' value='" + userid + "'>");
+                    out.println("<input type='hidden' name='password' value='" + password + "'>");
                     out.println("<input type='hidden' name='patron_attributes' value='" + patronAttributes + "'>");
+                    // Print these values
+                    out.println("<p>Student ID: " + studentId + "</p>");
+                    out.println("<p>First name: " + firstname + "</p>");
+                    out.println("<p>Surname: " + surname + "</p>");
+                    out.println("<p>Email: " + email + "</p>");
+                    out.println("<p>Category: " + category_id + "</p>");
+                    out.println("<p>Branch: " + library_id + "</p>");
+                    out.println("<p>Roll No: " + rollNo + "</p>");
+
                     out.println("<input type='submit' value='Insert into Koha'>");
                     out.println("</form>");
                 }
             } else {
                 out.println("<p>No data found for the given Student ID in Oracle.</p>");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace(out);
-            out.println("<p>Error fetching student data: " + e.getMessage() + "</p>");
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace(out);
-                out.println("<p>Error closing resources: " + e.getMessage() + "</p>");
-            }
+            out.println("<p>Error processing student lookup: " + e.getMessage() + "</p>");
         }
     }
 
