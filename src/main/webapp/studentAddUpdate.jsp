@@ -18,9 +18,20 @@
             padding: 8px;
             text-align: left;
         }
+        .success {
+    		color: blue;
+    		font-weight: bold;
+    		margin-bottom: 1em;
+		}
     </style>
 </head>
 <body>
+
+	<% String message = (String)request.getAttribute("message"); %>
+    <% if (message != null) { %>
+        <div class="success"><%= message %></div>
+    <% } %>
+    
     <h2>Student Information Lookup</h2>
     <form action="StudentLookupServlet" method="POST">
         <label for="studentId">Student ID:</label>
