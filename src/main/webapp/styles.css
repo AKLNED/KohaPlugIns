@@ -1,0 +1,306 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Light Pink Background for Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FCF9FC;  /* Light dull pink */
+    color: #428bca;  /* Black text */
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color:#FCF9FC;  /* Light dull pink for navigation */
+    padding: 10px 5%;  /* Add left and right padding to align with the header */
+    display: flex;
+    justify-content: flex-end;  /* Align items to the right */
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.navbar ul li:last-child {
+    margin-right: 0;  /* Remove margin from the last item */
+}
+
+.navbar ul li a {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+.navbar ul li a:hover {
+    background-color: #FCF9FC;  /* Lighter pink for hover effect */
+    border-radius: 5px;
+}
+
+/* Header Section */
+.header {
+    background-color:#FCF9FC;  /* pink background */
+    color: #800000;  /* Dark dull red for text */
+    margin: 0 0%;  /* Create space outside the header */
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);  /* Add a light shadow for depth */
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2em;
+}
+
+/* Responsive image in header */
+.responsive-header-img {
+    width: 100%;  /* Image will take up the full width of its container */
+    /*height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any extra whitespace below the image */
+}
+
+/* Search Section */
+.search-section {
+    background-color:#FCF9FC;  /* Match the light pink background */
+    padding: 20px 0;
+    text-align: center;
+	margin: 0 0%;  /* Create space outside the header */
+}
+
+#searchform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#searchform input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#masthead_search {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#searchsubmit {
+    background-color: #FCF9FC;  /* Light pink for buttons */
+    color: #800000;  /* Dark dull red for button text */
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#searchsubmit:hover {
+    background-color: #f2b7b7;  /* Slightly darker pink for hover */
+}
+
+/* Main Layout: Sidebar and Content */
+.main-layout {
+    display: flex;
+    padding: 20px;
+    background-color: #ffffff;  /* White background for main layout */
+    margin: 0 5%;  /* Create space outside main layout */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);  /* Add a light shadow for depth */
+}
+
+/* Sidebar Section */
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;  /* White background for sidebar */
+    padding: 20px;
+}
+
+.sidebar h3 {
+    color: #6c90b9;  /* Soft blue for sidebar headings */
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #428bca;  /* Black text for sidebar links */
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content Section */
+.content {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.new-arrivals, .announcements {
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #800000;  /* Dark dull red for main headings */
+    margin-bottom: 10px;
+}
+
+.book {
+    background-color: #f5f5f5;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.book h4 {
+    color: #6c90b9;  /* Soft blue for secondary headings (book titles) */
+    margin-bottom: 5px;
+}
+
+/* Footer Section */
+.footer {
+    background-color: #FCF9FC;  /* pink background for footer */
+    color:#800000 ;  /* Dark dull red for footer text */
+    margin: 0 5%;  /* Create space outside the footer */
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);  /* Add a light shadow for depth */
+}
+
+.footer p {
+    margin-bottom: 5px;
+}
+
+/* Staff Directory */
+.staff-directory {
+    margin-bottom: 20px;
+}
+
+.staff-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.staff-table td {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.staff-table tr:nth-child(odd) {
+    background-color: #f9f9f9;  /* Light grey for odd rows */
+}
+
+.staff-table tr:nth-child(even) {
+    background-color: #f4f4f4;  /* Slightly darker grey for even rows */
+}
+
+.staff-table td strong {
+    color: #800000 ;  /* Dark dull red for staff names and roles */
+}
+
+/* Row alternate background color */
+.row-alt {
+    background-color: #f5f5f5;  /* Custom alternating row color */
+}
+
+/* Media Queries for Responsiveness */
+
+/* For tablets and small devices (max-width: 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;  /* Stack the navbar items vertically */
+        text-align: right;
+    }
+    
+    .main-layout {
+        flex-direction: column;  /* Stack sidebar and content vertically */
+    }
+
+    .sidebar {
+        width: 100%;  /* Sidebar takes full width */
+        margin-bottom: 20px;  /* Add space below sidebar */
+    }
+    
+    .content {
+        padding-left: 0;  /* Remove left padding for main content */
+    }
+
+    #searchform {
+        flex-direction: column;  /* Stack search form elements vertically */
+    }
+
+    #searchform input[type="text"],
+    #masthead_search,
+    #searchsubmit {
+        width: 100%;  /* Make search input, dropdown, and button take full width */
+        margin-bottom: 10px;
+    }
+	.staff-table td {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .staff-table tr {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .staff-table tr:nth-child(odd), .staff-table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+    
+    .success {
+    		color: blue;
+    		font-weight: bold;
+    		margin-bottom: 1em;
+		}
+}
+
+/* For mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .navbar ul li {
+        display: block;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .header p {
+        font-size: 1em;
+    }
+
+    .footer p {
+        font-size: 0.9em;
+    }
+}

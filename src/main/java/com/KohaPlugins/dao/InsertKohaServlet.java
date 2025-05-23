@@ -1,6 +1,6 @@
 package com.KohaPlugins.dao;
 
-//import com.KohaPlugins.service.KohaPatronService;
+import com.KohaPlugins.service.KohaPatronService;
 import com.KohaPlugins.util.AuthManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @WebServlet("/InsertKohaServlet")
 public class InsertKohaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private final KohaPatronService kohaService = new KohaPatronService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +53,7 @@ public class InsertKohaServlet extends HttpServlet {
         json.put("library_id", library_id != null ? library_id : "");
         json.put("category_id", category_id != null ? category_id : "");
         json.put("date_enrolled", date_enrolled);
-        json.put("staff_notes", "Inserted using KohaPlugins");
+        json.put("staff_notes", "Added using KohaPlugins");
         json.put("userid", userid != null ? userid : "");
 
         // Parse extended_attributes
@@ -119,17 +120,22 @@ public class InsertKohaServlet extends HttpServlet {
 
             // Output API response
             if (responseCode >= 200 && responseCode < 300) {
-                // Success: Set message and forward to JSP
-                request.setAttribute("message", "Record inserted successfully");
-                request.getRequestDispatcher("studentAddUpdate.jsp").forward(request, response);
-                return;
-            } else {
+                // Success: Set message and redirect to patron page on Koha
+                
+            	JSONObject kohaPatron = kohaService.getKohaPatronByCardNumber(cardnumber);
+
+                if (kohaPatron != null) {
+                    int patronId = kohaPatron.optInt("patron_id");
+                    String kohaUrl = "http://seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
+                    response.sendRedirect(kohaUrl);
+                    return;
+             } else {
                 // Failure: Show error (optional)
                 request.setAttribute("message", "Failed to insert record: " + apiResponse.toString());
                 request.getRequestDispatcher("studentAddUpdate.jsp").forward(request, response);
                 return;
             }
-            
+           }
         } catch (Exception e) {
         	request.setAttribute("message", "An error occurred: " + e.getMessage());
             request.getRequestDispatcher("studentAddUpdate.jsp").forward(request, response);

@@ -13,7 +13,7 @@ public class KohaPatronService {
 
     public JSONObject getKohaPatronByCardNumber(String studentId) {
         try {
-            String url = "http://seakl.neduet.edu.pk/api/v1/patrons?cardnumber=" + studentId;
+            String url = "http://www.seakl.neduet.edu.pk/api/v1/patrons?cardnumber=" + studentId + "&_match=exact";
             String token = AuthManager.getAccessToken();
 
             URI uri = new URI(url);

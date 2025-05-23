@@ -23,35 +23,29 @@ public class StudentLookupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String studentId = request.getParameter("studentId");
+        String category = request.getParameter("category");
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
         try {
             // Step 1: Get student info from Oracle via the service
-            JSONObject oracleStudent = oracleService.getStudentInfoById(studentId);
+        	
+            JSONObject oracleStudent = oracleService.getStudentInfoById(studentId, category);
 
             if (oracleStudent != null) {
                 
-            	// Print all information from Oracle database
-                /*
-                 * out.println("<h3>Oracle Student Information</h3>");
-                out.println("<ol>");
-                for (String key : oracleStudent.keySet()) {
-                    out.println("<li><strong>" + key + ":</strong> " + oracleStudent.get(key) + "</li>");
-                }
-                out.println("</ol>");
-                */
-
-                String studentID = oracleStudent.optString("STUDENTID");
-                //out.println("<p>oracleStudentID: " + studentID + "</p>");
+            	//String studentID = oracleStudent.optString("STUDENTID");
+                
                 String firstname = oracleStudent.optString("FIRSTNAME");
+                out.println("<p>oracleStudentName: " + firstname + "</p>");
                 String surname = oracleStudent.optString("SURNAME");
                 String address = oracleStudent.optString("ADDRESS");
                 String address2 = oracleStudent.optString("ADDRESS2");
                 String phone = oracleStudent.optString("PHONE");
                 String mobile = oracleStudent.optString("MOBILE");
                 String email = oracleStudent.optString("EMAIL");
+                //String email = "naveen@neduet.edu.pk";
                 String cardnumber = oracleStudent.optString("CARDNUMBER");
                 String category_id = oracleStudent.optString("CATEGORYCODE");
                 String library_id = oracleStudent.optString("BRANCHCODE");
@@ -59,6 +53,7 @@ public class StudentLookupServlet extends HttpServlet {
                 String userid = oracleStudent.optString("USERID");
                 String password = oracleStudent.optString("PASSWORD");
                 String patronAttributes = oracleStudent.optString("PATRON_ATTRIBUTES");
+                out.println("<p>oracleAttributes: " + patronAttributes + "</p>");
 
                 // Extract rollNo from Oracle attributes
                 String rollNo = extractFromOracleAttributes(patronAttributes, "PAT_NO");
@@ -67,65 +62,70 @@ public class StudentLookupServlet extends HttpServlet {
                 JSONObject kohaPatron = kohaService.getKohaPatronByCardNumber(studentId);
 
                 if (kohaPatron != null) {
+                	if ("EMP".equals(category)) {
+                		request.setAttribute("status", "found_same");
+                        request.setAttribute("studentId", studentId);
+                	}
+                	else {
                     int patronId = kohaPatron.optInt("patron_id");
                     JSONArray kohaExtendedAttributes = kohaService.getExtendedAttributes(patronId);
                     String kohaRollNo = extractFromKohaExtendedAttributes(kohaExtendedAttributes, "PAT_NO");
-
+                 // Patron found in Koha
                     if (rollNo.equals(kohaRollNo)) {
-                        out.println("<p>The same patron with the same information exists in the library database.</p>");
+                    	// Patron found in Koha
+                    	request.setAttribute("status", "found_same");
+                        request.setAttribute("studentId", studentId);
+                        
                     } else {
-                        out.println("<p>Different information found in Koha. Do you want to update?</p>");
-                        out.println("<form action='UpdateKohaServlet' method='POST'>");
-                        out.println("<p>Student ID: " + studentId + "</p>");
-                        out.println("<input type='hidden' name='studentId' value='" + studentId + "'>");
-                        out.println("<p>Patron Attributes: " + patronAttributes + "</p>");
-                        out.println("<input type='hidden' name='patron_attributes' value='" + patronAttributes + "'>");
-                        out.println("<p>SIS Roll No: " + rollNo + "</p>");
-                        out.println("<p>Koha Roll No: " + kohaRollNo + "</p>");
-                        out.println("<input type='submit' value='Update Koha'>");
-                        out.println("</form>");
+                    	// Patron found in Koha with different extended attributes
+                    	request.setAttribute("status", "found_different");
+                        request.setAttribute("studentId", studentId);
+                        request.setAttribute("patronAttributes", patronAttributes);
+                        request.setAttribute("rollNo", rollNo);
+                        request.setAttribute("kohaRollNo", kohaRollNo);
+                    }
                     }
                 } else {
                     // Step 3: Prompt user to insert new patron
-                    out.println("<p>Student does not exist in the library database. Do you want to insert?</p>");
-                    out.println("<form action='InsertKohaServlet' method='POST'>");
-                    out.println("<input type='hidden' name='studentId' value='" + studentId + "'>");
-                    out.println("<input type='hidden' name='firstname' value='" + firstname + "'>");
-                    out.println("<input type='hidden' name='surname' value='" + surname + "'>");
-                    out.println("<input type='hidden' name='address' value='" + address + "'>");
-                    out.println("<input type='hidden' name='address2' value='" + address2 + "'>");
-                    out.println("<input type='hidden' name='phone' value='" + phone + "'>");
-                    out.println("<input type='hidden' name='mobile' value='" + mobile + "'>");
-                    out.println("<input type='hidden' name='email' value='" + email + "'>");
-                    out.println("<input type='hidden' name='cardnumber' value='" + cardnumber + "'>");
-                    out.println("<input type='hidden' name='category' value='" + category_id + "'>");
-                    out.println("<input type='hidden' name='branch' value='" + library_id + "'>");
-                    out.println("<input type='hidden' name='dateenrolled' value='" + dateenrolled + "'>");
-                    out.println("<input type='hidden' name='userid' value='" + userid + "'>");
-                    out.println("<input type='hidden' name='password' value='" + password + "'>");
-                    out.println("<input type='hidden' name='patron_attributes' value='" + patronAttributes + "'>");
-                    // Print these values
-                    out.println("<p>Student ID: " + studentId + "</p>");
-                    out.println("<p>First name: " + firstname + "</p>");
-                    out.println("<p>Surname: " + surname + "</p>");
-                    out.println("<p>Email: " + email + "</p>");
-                    out.println("<p>Category: " + category_id + "</p>");
-                    out.println("<p>Branch: " + library_id + "</p>");
-                    out.println("<p>Roll No: " + rollNo + "</p>");
-
-                    out.println("<input type='submit' value='Insert into Koha'>");
-                    out.println("</form>");
+                	if ((email != null && !email.contains("@cloud.neduet.edu.pk")) && 
+                		    ("UG".equals(category) || "PG".equals(category))) {
+                	    request.setAttribute("status", "not_in_koha_invalid_email");
+                	} else {
+                	    request.setAttribute("status", "not_in_koha");
+                	}
+                	    request.setAttribute("studentId", studentId);
+                	    request.setAttribute("firstname", firstname);
+                	    request.setAttribute("surname", surname);
+                	    request.setAttribute("address", address);
+                	    request.setAttribute("address2", address2);
+                	    request.setAttribute("phone", phone);
+                	    request.setAttribute("mobile", mobile);
+                	    request.setAttribute("email", email);
+                	    request.setAttribute("cardnumber", cardnumber);
+                	    request.setAttribute("category_id", category_id);
+                	    request.setAttribute("library_id", library_id);
+                	    request.setAttribute("dateenrolled", dateenrolled);
+                	    request.setAttribute("userid", userid);
+                	    request.setAttribute("password", password);
+                	    request.setAttribute("patronAttributes", patronAttributes);
+                	    request.setAttribute("rollNo", rollNo);
+                	
                 }
             } else {
-                out.println("<p>No data found for the given Student ID in Oracle.</p>");
-            }
+            	request.setAttribute("status", "not_found");  
+            	}
+            
+            request.getRequestDispatcher("/studentResult.jsp").forward(request, response);
+            
         } catch (Exception e) {
             e.printStackTrace(out);
             out.println("<p>Error processing student lookup: " + e.getMessage() + "</p>");
         }
     }
+    
+    // TWO DIFFERENT FUNCTIONS TO EXTRACT ROLL NOS FROM ORACLE AND KOHA DATABASES
 
-    // Extract key from Oracle attribute string
+    // FUNCTION 1: Extract key from Oracle attribute string
     private String extractFromOracleAttributes(String attributes, String key) {
         if (attributes == null) return "";
         String[] pairs = attributes.split(",");
@@ -138,7 +138,7 @@ public class StudentLookupServlet extends HttpServlet {
         return "";
     }
 
-    // Extract key from Koha extended attributes array
+    // FUNCTION 2: Extract key from Koha extended attributes array
     private String extractFromKohaExtendedAttributes(JSONArray attributesArr, String key) {
         if (attributesArr == null) return "";
         for (int i = 0; i < attributesArr.length(); i++) {

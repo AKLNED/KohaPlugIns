@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class OracleMemberService {
 
-    public JSONObject getStudentInfoById(String studentId) {
+    public JSONObject getStudentInfoById(String studentId,String category) {
         Connection conn = null;
         CallableStatement stmt = null;
         ResultSet rs = null;
@@ -16,7 +16,17 @@ public class OracleMemberService {
 
         try {
             conn = dbConn.getOracleConnection();
-            String function = "{ ? = call kohaPlugin.fetch_student_info(?)}";
+            
+//            String function = "{ ? = call kohaPlugin.fetch_student_info(?)}";
+            String function="";
+            
+            if ("UG".equals(category)) {
+            	function = "{ ? = call kohaPlugin.fetch_student_info(?) }";
+            } else if ("PG".equals(category)) {
+            	function = "{ ? = call kohaPlugin.fetch_pg_student_info(?) }";
+            } else if ("EMP".equals(category)) {
+            	function = "{ ? = call kohaPlugin.fetch_employee_info(?) }";
+            }
             stmt = conn.prepareCall(function);
             stmt.registerOutParameter(1, OracleTypes.CURSOR);
             stmt.setString(2, studentId);

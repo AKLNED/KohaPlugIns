@@ -1,50 +1,67 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Information</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        .success {
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Engr Abul Kalam Library - PlugIns</title>
+    <link rel="stylesheet" href="styles.css">
+    <style type="text/css">
+<!--
+.style1 {color: #800000}
+.style2 {color: #428bca}
+.style3 {color: #80000; }
+-->
+.message {
     		color: blue;
-    		font-weight: bold;
+    		font-weight: demibold;
     		margin-bottom: 1em;
-		}
+		} 
     </style>
-</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <body>
 
-	<% String message = (String)request.getAttribute("message"); %>
+    <%@ include file="header.jsp" %>
+
+    <%@ include file="searchbox.jsp" %>
+
+    <!-- Main Layout: Sidebar and Content -->
+    <div class="main-layout">
+        <!-- Sidebar Section -->
+        <%@ include file="sidebar.jsp" %>
+
+        <!-- Main Content Section -->
+        <main class="content">
+            <section class="new-arrivals">
+            <div class="message">
+                <h3 class="style3">Add / Update Patrons to Koha</h2>
+                
+                <% String message = (String)request.getAttribute("message"); %>
     <% if (message != null) { %>
-        <div class="success"><%= message %></div>
+        <div class="success"><br><%= message %></div>
     <% } %>
-    
-    <h2>Student Information Lookup</h2>
+    <br>
+    <!--  <h2>Student Information Lookup</h2>-->
     <form action="StudentLookupServlet" method="POST">
-        <label for="studentId">Student ID:</label>
-        <input type="text" id="studentId" name="studentId" required><br><br>
+        
         <label for="category">Category:</label>
         <select name="category" id="category">
-            <option value="UG1">UG1</option>
-            <option value="UG2">UG2</option>
-            <option value="UG3">UG3</option>
-            <option value="UG4">UG4</option>
-            <option value="UG5">UG5</option>
-        </select><br><br>
-        <input type="submit" value="Search">
+            <option value="UG">Undergraduate Student</option>
+            <option value="PG">Postgraduate Student</option>
+            <option value="EMP">Faculty/Employee</option>
+            </select><br><br>
+            
+            <label for="studentId">Member ID:</label>
+        <input type="text" id="studentId" name="studentId" required><br><br>
+        
+        <input type="submit" value=" Lookup ">
     </form>
+            </div>
+            </section>
+            <section class="announcements"></section>
+        </main>
+</div>
+
+        <%@ include file="footer.jsp" %>
 </body>
 </html>
