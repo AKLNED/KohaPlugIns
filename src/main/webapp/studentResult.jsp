@@ -21,12 +21,13 @@
 .style3 {
 	color: #80000;
 }
+
 -->
 .message {
-    		color: blue;
-    		font-weight: demibold;
-    		margin-bottom: 1em;
-		} 
+	color: blue;
+	font-weight: demibold;
+	margin-bottom: 1em;
+}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -45,117 +46,156 @@
 		<main class="content">
 			<section class="new-arrivals">
 				<div class="message">
-				<h3 class="style1">Add / Update Patrons to Koha</h2>
-				<br>
+					<h3 class="style1">
+						Add / Update Patrons to Koha
+						</h2>
+						<br>
 
-				<c:choose>
-					<c:when test="${status == 'found_same'}">
-						<p>Member is already registered in the library database.</p> <br>
-						<button type="button"
-							onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
-							Add New Member &nbsp;</button>
-					</c:when>
+						<c:choose>
+							<c:when test="${status == 'found_same'}">
+								<p>Member is already registered in the library database.</p>
+								<br>
+								<button type="button"
+									onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+									Add New Member &nbsp;</button>
+							</c:when>
 
-					<c:when test="${status == 'found_different'}">
-						<p>
-							<b>Same Member with different information found in Library !!</b>
-						</p>
-						<form action="UpdateKohaServlet" method="POST">
-							<br>
-							<p>Student ID: ${studentId}</p>
-							<br>
-							<p>Portal SIS Roll No: ${rollNo}</p>
-							<p>Existing Koha Roll No: ${kohaRollNo}</p>
-							<br>
-							<p>Do you want to update member information with the above ?</p>
-							<br> <input type="hidden" name="studentId"
-								value="${studentId}" /> <input type="hidden"
-								name="patron_attributes" value="${patronAttributes}" /> <input
-								type="submit" value=" Update Member Information in Library " />
-							<button type="button"
-								onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
-								Return  &nbsp;</button>
-						</form>
-					</c:when>
+							<c:when test="${status == 'found_different'}">
+								<p>
+									<b>Same Member with different information found in Library
+										!!</b>
+								</p>
+								<form action="UpdateKohaServlet" method="POST">
+									<br>
+									<p>Student ID: ${studentId}</p>
+									<br>
+									<p>-> Existing Koha Borrower No: ${kohaRollNo}</p>
+									<br>
+									<p>-> Updated Portal SIS Roll No: ${rollNo}</p>
+									<br>
+									<p><b>Do you want to update member information with the above
+										?</b></p>
+									<br> <input type="hidden" name="studentId"
+										value="${studentId}" /> <input type="hidden"
+										name="patron_attributes" value="${patronAttributes}" /> <input
+										type="submit" value=" Yes, Update Member " />
+									<button type="button"
+										onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+										Return &nbsp;</button>
+								</form>
+							</c:when>
 
-					<c:when test="${status == 'not_in_koha'}">
-						<p>Member is found with the following Information: </p>
-						<form action="InsertKohaServlet" method="POST">
-							<input type="hidden" name="studentId" value="${studentId}" /> <input
-								type="hidden" name="firstname" value="${firstname}" /> <input
-								type="hidden" name="surname" value="${surname}" /> <input
-								type="hidden" name="address" value="${address}" /> <input
-								type="hidden" name="address2" value="${address2}" /> <input
-								type="hidden" name="phone" value="${phone}" /> <input
-								type="hidden" name="mobile" value="${mobile}" /> <input
-								type="hidden" name="email" value="${email}" /> <input
-								type="hidden" name="cardnumber" value="${cardnumber}" /> <input
-								type="hidden" name="category" value="${category_id}" /> <input
-								type="hidden" name="branch" value="${library_id}" /> <input
-								type="hidden" name="dateenrolled" value="${dateenrolled}" /> <input
-								type="hidden" name="userid" value="${userid}" /> <input
-								type="hidden" name="password" value="${password}" /> <input
-								type="hidden" name="patron_attributes"
-								value="${patronAttributes}" /> <br>
-							<p>Student ID: ${studentId}</p>
-							<p>First name: ${firstname}</p>
-							<p>Surname: ${surname}</p>
-							<p>Email: ${email}</p>
-							<p>Category: ${category_id}</p>
-							<p>Branch: ${library_id}</p>
-							<p>Roll No: ${rollNo}</p><br>
-							Do you want to register this member?
-							<br><br> <input type="submit" value=" Yes, Register Member " />
-							<button type="button"
-								onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
-								No, Return &nbsp;</button>
-						</form>
-					</c:when>
-					
-					<c:when test="${status == 'not_in_koha_invalid_email'}">
-						<p>Member does not have valid email address!! <br><br>
-						Will not be able to login for online Services! <br>
-						Do you still want to register this member?</p>
-						<form action="InsertKohaServlet" method="POST">
-							<input type="hidden" name="studentId" value="${studentId}" /> <input
-								type="hidden" name="firstname" value="${firstname}" /> <input
-								type="hidden" name="surname" value="${surname}" /> <input
-								type="hidden" name="address" value="${address}" /> <input
-								type="hidden" name="address2" value="${address2}" /> <input
-								type="hidden" name="phone" value="${phone}" /> <input
-								type="hidden" name="mobile" value="${mobile}" /> <input
-								type="hidden" name="email" value="${email}" /> <input
-								type="hidden" name="cardnumber" value="${cardnumber}" /> <input
-								type="hidden" name="category" value="${category_id}" /> <input
-								type="hidden" name="branch" value="${library_id}" /> <input
-								type="hidden" name="dateenrolled" value="${dateenrolled}" /> <input
-								type="hidden" name="userid" value="${userid}" /> <input
-								type="hidden" name="password" value="${password}" /> <input
-								type="hidden" name="patron_attributes"
-								value="${patronAttributes}" /> <br>
-							<p>Student ID: ${studentId}</p>
-							<p>First name: ${firstname}</p>
-							<p>Surname: ${surname}</p>
-							<p>Email: ${email}</p>
-							<p>Category: ${category_id}</p>
-							<p>Branch: ${library_id}</p>
-							<p>Roll No: ${rollNo}</p>
-							<br> <input type="submit" value=" Yes, Register Member " />
-							<button type="button"
-								onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
-								No, Return &nbsp;</button>
-						</form>
-					</c:when>
-					
+							<c:when test="${status == 'not_in_koha'}">
+								<p><b>Member is found with the following Information:</b></p>
+								<form action="InsertKohaServlet" method="POST">
+									<input type="hidden" name="studentId" value="${studentId}" />
+									<input type="hidden" name="firstname" value="${firstname}" />
+									<input type="hidden" name="surname" value="${surname}" /> <input
+										type="hidden" name="address" value="${address}" /> <input
+										type="hidden" name="address2" value="${address2}" /> <input
+										type="hidden" name="phone" value="${phone}" /> <input
+										type="hidden" name="mobile" value="${mobile}" /> <input
+										type="hidden" name="email" value="${email}" /> <input
+										type="hidden" name="cardnumber" value="${cardnumber}" /> <input
+										type="hidden" name="category" value="${category_id}" /> <input
+										type="hidden" name="branch" value="${library_id}" /> <input
+										type="hidden" name="dateenrolled" value="${dateenrolled}" />
+									<input type="hidden" name="userid" value="${userid}" /> <input
+										type="hidden" name="password" value="${password}" /> <input
+										type="hidden" name="patron_attributes"
+										value="${patronAttributes}" /> <br>
+									<p>Student ID: ${studentId}</p><br>
+									<p>First name: ${firstname}</p><br>
+									<p>Surname: ${surname}</p><br>
+									<p>Email: ${email}</p><br>
+									<p>Branch: ${library_id}</p><br>
+									<p>Borrower No: ${rollNo}</p><br>
+									<p>Category: ${category_id}</p>
+									<!-- RED MESSAGE IF category_id == 'FAC' -->
+									<c:if test="${category_id == 'FAC'}">
+										<p style="color: #800000; font-weight: demibold;">
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											This employee will be added as a <b>Faculty member</b>.<br> 
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											If
+											he/she is not a faculty member, Please ensure that correct
+											category is updated in Library Database.
+										</p>
+									</c:if>
+<br>
+									<b>Do you want to register this member? </b><br> <br> <input
+										type="submit" value=" Yes, Register Member " />
+									<button type="button"
+										onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+										No, Return &nbsp;</button>
+								</form>
+							</c:when>
 
-					<c:when test="${status == 'not_found'}">
-						<p>Member cannot be found in NED University Database. Please re-confirm ID.</p> <br>
-						<button type="button"
-							onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
-							Add Another Member &nbsp;</button>
-					</c:when>
-				</c:choose>
-</div>
+							<c:when test="${status == 'not_in_koha_invalid_email'}">
+
+								<form action="InsertKohaServlet" method="POST">
+									<input type="hidden" name="studentId" value="${studentId}" />
+									<input type="hidden" name="firstname" value="${firstname}" />
+									<input type="hidden" name="surname" value="${surname}" /> <input
+										type="hidden" name="address" value="${address}" /> <input
+										type="hidden" name="address2" value="${address2}" /> <input
+										type="hidden" name="phone" value="${phone}" /> <input
+										type="hidden" name="mobile" value="${mobile}" /> <input
+										type="hidden" name="email" value="${email}" /> <input
+										type="hidden" name="cardnumber" value="${cardnumber}" /> <input
+										type="hidden" name="category" value="${category_id}" /> <input
+										type="hidden" name="branch" value="${library_id}" /> <input
+										type="hidden" name="dateenrolled" value="${dateenrolled}" />
+									<input type="hidden" name="userid" value="${userid}" /> <input
+										type="hidden" name="password" value="${password}" /> <input
+										type="hidden" name="patron_attributes"
+										value="${patronAttributes}" /> 
+									<p>Student ID: ${studentId}</p><br>
+									<p>First name: ${firstname}</p><br>
+									<p>Surname: ${surname}</p><br>
+									<p>Branch: ${library_id}</p><br>
+									<p>Borrower No: ${rollNo}</p><br>
+									<p>Category: ${category_id}</p>
+
+									<!-- RED MESSAGE IF category_id == 'FAC' -->
+									<c:if test="${category_id == 'FAC'}">
+										<p style="color: #800000; font-weight: demibold;">
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											This employee will be added as a <b>Faculty member</b>. <br>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											If he/she is not a faculty member, Please ensure that correct
+											category is updated in Library Database.
+										</p>
+									</c:if><br>
+
+									<p>Email: ${email}</p>
+									<p style="color: #800000; font-weight: demibold;">
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										Member does not have an Email Account or a valid Workplace Email Account!! <br> 
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										Will not be able to login for online Services using Google SignIn!
+										</style>
+									</p>
+									
+									<br> Are you sure you want to register this member? <br><br>
+									<input type="submit" value=" Yes, Register Member " />
+									<button type="button"
+										onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+										No, Return &nbsp;</button>
+								</form>
+							</c:when>
+
+
+							<c:when test="${status == 'not_found'}">
+								<p>Member cannot be found in NED University Database. Please
+									re-confirm ID.</p>
+								<br>
+								<button type="button"
+									onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+									Add Another Member &nbsp;</button>
+							</c:when>
+						</c:choose>
+				</div>
 			</section>
 			<section class="announcements"></section>
 		</main>

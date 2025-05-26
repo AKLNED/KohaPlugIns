@@ -34,7 +34,7 @@
         <main class="content">
             <section class="new-arrivals">
             <div class="message">
-                <h3 class="style3">Add / Update Patrons to Koha</h2>
+                <h3 class="style3">Add / Update Patrons to Koha</h3>
                 
                 <% String message = (String)request.getAttribute("message"); %>
     <% if (message != null) { %>

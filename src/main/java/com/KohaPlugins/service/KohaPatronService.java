@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 
+
 public class KohaPatronService {
 
     public JSONObject getKohaPatronByCardNumber(String studentId) {
@@ -43,7 +44,7 @@ public class KohaPatronService {
 
     public JSONArray getExtendedAttributes(int patronId) {
         try {
-            String url = "http://seakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
+            String url = "http://www.seakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
             String token = AuthManager.getAccessToken();
 
             URI uri = new URI(url);
@@ -69,4 +70,6 @@ public class KohaPatronService {
         }
         return new JSONArray(); // empty
     }
+    
+
 }
