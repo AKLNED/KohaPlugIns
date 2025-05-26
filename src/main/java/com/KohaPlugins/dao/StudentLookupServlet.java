@@ -56,6 +56,7 @@ public class StudentLookupServlet extends HttpServlet {
                 out.println("<p>oracleAttributes: " + patronAttributes + "</p>");
 
                 // Extract rollNo from Oracle attributes
+                
                 String rollNo = extractFromOracleAttributes(patronAttributes, "PAT_NO");
 
                 // Step 2: Check Koha for patron
@@ -87,8 +88,7 @@ public class StudentLookupServlet extends HttpServlet {
                     }
                 } else {
                     // Step 3: Prompt user to insert new patron
-                	if ((email != null && !email.contains("@cloud.neduet.edu.pk")) && 
-                		    ("UG".equals(category) || "PG".equals(category))) {
+                	if ((email != null && !email.contains("@cloud.neduet.edu.pk")) ) {
                 	    request.setAttribute("status", "not_in_koha_invalid_email");
                 	} else {
                 	    request.setAttribute("status", "not_in_koha");
