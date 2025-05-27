@@ -1,12 +1,14 @@
 package com.KohaPlugins.dao;
 
 import com.KohaPlugins.service.KohaPatronService;
-import com.KohaPlugins.util.AuthManager;
+//import com.KohaPlugins.util.AuthManager;
+import com.KohaPlugins.util.AuthBasic;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,6 +24,15 @@ public class UpdateKohaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	/* Protects sensitive JSPs and servlets with a session check (e.g., check for an attribute like kohaUserid in session).
+		If not present, redirect to your login page before any API call is attempted. */
+    	HttpSession session = request.getSession(false);
+    	if (session.getAttribute("kohaUserid") == null) {
+			response.sendRedirect("kohaPluginLogin.jsp");
+			return;
+		}
+    	
         String studentId = request.getParameter("studentId");
         String patronAttributes = request.getParameter("patron_attributes");
 
@@ -63,9 +74,9 @@ public class UpdateKohaServlet extends HttpServlet {
 
         String apiUrl = "http://seakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
 
-        String token;
+        //String token;
         try {
-            token = AuthManager.getAccessToken();
+            //token = AuthManager.getAccessToken();
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             out.println("{\"error\": \"Failed to get access token: " + e.getMessage() + "\"}");
@@ -74,10 +85,14 @@ public class UpdateKohaServlet extends HttpServlet {
 
         HttpURLConnection conn = null;
         try {
-            URI uri = new URI(apiUrl);
+        	
+        	AuthBasic.setSessionTimeout(request); // session timeout
+        	
+        	URI uri = new URI(apiUrl);
             conn = (HttpURLConnection) uri.toURL().openConnection();
             conn.setRequestMethod("PUT");
-            conn.setRequestProperty("Authorization", "Bearer " + token);
+            //conn.setRequestProperty("Authorization", "Bearer " + token);
+            conn.setRequestProperty("Authorization", AuthBasic.getBasicAuthHeader());
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);

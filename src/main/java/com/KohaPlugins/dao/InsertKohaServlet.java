@@ -1,12 +1,14 @@
 package com.KohaPlugins.dao;
 
 import com.KohaPlugins.service.KohaPatronService;
-import com.KohaPlugins.util.AuthManager;
+//import com.KohaPlugins.util.AuthManager;
+import com.KohaPlugins.util.AuthBasic;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,6 +25,15 @@ public class InsertKohaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	/* Protects sensitive JSPs and servlets with a session check (e.g., check for an attribute like kohaUserid in session).
+		If not present, redirect to your login page before any API call is attempted. */
+    	HttpSession session = request.getSession(false);
+    	if (session.getAttribute("kohaUserid") == null) {
+			response.sendRedirect("kohaPluginLogin.jsp");
+			return;
+		}
+		
         // Read all form fields
         String cardnumber = request.getParameter("studentId"); // or "cardnumber"
         String surname = request.getParameter("surname");
@@ -78,9 +89,10 @@ public class InsertKohaServlet extends HttpServlet {
         // Prepare Koha API call
         String apiUrl = "http://seakl.neduet.edu.pk/api/v1/patrons";
         
-        String token = null;
+        //String token = null;
         try {
-            token = AuthManager.getAccessToken();
+            //token = AuthManager.getAccessToken();
+            
         } catch (Exception e) {
             // Handle exception (e.g., log and send error response)
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -93,10 +105,14 @@ public class InsertKohaServlet extends HttpServlet {
         response.setContentType("application/json");
 
         try {
+        	
+        	AuthBasic.setSessionTimeout(request); // session timeout
+        	
             URI uri = new URI(apiUrl);
             conn = (HttpURLConnection) uri.toURL().openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + token);
+          //  conn.setRequestProperty("Authorization", "Bearer " + token);
+            conn.setRequestProperty("Authorization", AuthBasic.getBasicAuthHeader());
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
@@ -117,7 +133,9 @@ public class InsertKohaServlet extends HttpServlet {
                 apiResponse.append(line);
             }
             br.close();
-
+            out.println(apiResponse.toString());
+            response.setStatus(responseCode);
+            
             // Output API response
             if (responseCode >= 200 && responseCode < 300) {
                 // Success: Set message and redirect to patron page on Koha

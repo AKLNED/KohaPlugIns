@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -22,6 +23,15 @@ public class StudentLookupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	/* Protects sensitive JSPs and servlets with a session check (e.g., check for an attribute like kohaUserid in session).
+		If not present, redirect to your login page before any API call is attempted. */
+    	HttpSession session = request.getSession(false);
+    	if (session.getAttribute("kohaUserid") == null) {
+			response.sendRedirect("kohaPluginLogin.jsp");
+			return;
+		}
+    	
         String studentId = request.getParameter("studentId");
         String category = request.getParameter("category");
 
