@@ -28,7 +28,7 @@ public class StudentLookupServlet extends HttpServlet {
 		If not present, redirect to your login page before any API call is attempted. */
     	HttpSession session = request.getSession(false);
     	if (session.getAttribute("kohaUserid") == null) {
-			response.sendRedirect("kohaPluginLogin.jsp");
+			response.sendRedirect("/KohaPlugins/kohaPluginLogin.jsp");
 			return;
 		}
     	
@@ -125,7 +125,7 @@ public class StudentLookupServlet extends HttpServlet {
             	request.setAttribute("status", "not_found");  
             	}
             
-            request.getRequestDispatcher("/studentResult.jsp").forward(request, response);
+            request.getRequestDispatcher("/patron/studentResult.jsp").forward(request, response);
             
         } catch (Exception e) {
             e.printStackTrace(out);

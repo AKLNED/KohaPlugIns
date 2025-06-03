@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Library Catalog - Koha Inspired</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/common/styles.css">
 <style type="text/css">
 <!--
 .style1 {
@@ -33,14 +33,14 @@
 </head>
 <body>
 
-	<%@ include file="header.jsp"%>
+	<%@ include file="/common/header.jsp"%>
 
-	<%@ include file="searchbox.jsp"%>
+	<%@ include file="/common/searchbox.jsp"%>
 
 	<!-- Main Layout: Sidebar and Content -->
 	<div class="main-layout">
 		<!-- Sidebar Section -->
-		<%@ include file="sidebar.jsp"%>
+		<%@ include file="/common/sidebar.jsp"%>
 
 		<!-- Main Content Section -->
 		<main class="content">
@@ -52,7 +52,7 @@
 					If not present, redirect to your login page before any API call is attempted. -->
 					<%
 					if (session.getAttribute("kohaUserid") == null) {
-						response.sendRedirect("kohaPluginLogin.jsp");
+						response.sendRedirect(request.getContextPath()+"/kohaPluginLogin.jsp");
 						return;
 					}
 					%>
@@ -62,7 +62,7 @@
 							<p>Member is already registered in the library database.</p>
 							<br>
 							<button type="button"
-								onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+								onclick="window.location.href='<%=request.getContextPath()%>/patron/studentAddUpdate.jsp'">&nbsp;
 								Add New Member &nbsp;</button>
 						</c:when>
 
@@ -71,7 +71,7 @@
 								<b>Same Member with different information found in Library
 									!!</b>
 							</p>
-							<form action="UpdateKohaServlet" method="POST">
+							<form action="<%=request.getContextPath()%>/UpdateKohaServlet" method="POST">
 								<br>
 								<p>Student ID: ${studentId}</p>
 								<br>
@@ -88,8 +88,8 @@
 									name="patron_attributes" value="${patronAttributes}" /> <input
 									type="submit" value=" Yes, Update Member " />
 								<button type="button"
-									onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
-									Return &nbsp;</button>
+									onclick="window.location.href='<%=request.getContextPath()%>/patron/studentAddUpdate.jsp'">&nbsp;
+									No, Return &nbsp;</button>
 							</form>
 						</c:when>
 
@@ -97,7 +97,7 @@
 							<p>
 								<b>Member is found with the following Information:</b>
 							</p>
-							<form action="InsertKohaServlet" method="POST">
+							<form action="<%=request.getContextPath()%>/InsertKohaServlet" method="POST">
 								<input type="hidden" name="studentId" value="${studentId}" /> <input
 									type="hidden" name="firstname" value="${firstname}" /> <input
 									type="hidden" name="surname" value="${surname}" /> <input
@@ -139,14 +139,14 @@
 								<br> <b>Do you want to register this member? </b><br>
 								<br> <input type="submit" value=" Yes, Register Member " />
 								<button type="button"
-									onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+									onclick="window.location.href='<%=request.getContextPath()%>/patron/studentAddUpdate.jsp'">&nbsp;
 									No, Return &nbsp;</button>
 							</form>
 						</c:when>
 
 						<c:when test="${status == 'not_in_koha_invalid_email'}">
 
-							<form action="InsertKohaServlet" method="POST">
+							<form action="<%=request.getContextPath()%>/InsertKohaServlet" method="POST">
 								<input type="hidden" name="studentId" value="${studentId}" /> <input
 									type="hidden" name="firstname" value="${firstname}" /> <input
 									type="hidden" name="surname" value="${surname}" /> <input
@@ -198,7 +198,7 @@
 								<br> Are you sure you want to register this member? <br>
 								<br> <input type="submit" value=" Yes, Register Member " />
 								<button type="button"
-									onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+									onclick="window.location.href='<%=request.getContextPath()%>/patron/studentAddUpdate.jsp'">&nbsp;
 									No, Return &nbsp;</button>
 							</form>
 						</c:when>
@@ -209,7 +209,7 @@
 								re-confirm ID.</p>
 							<br>
 							<button type="button"
-								onclick="window.location.href='studentAddUpdate.jsp'">&nbsp;
+								onclick="window.location.href='<%=request.getContextPath()%>/patron/studentAddUpdate.jsp'">&nbsp;
 								Add Another Member &nbsp;</button>
 						</c:when>
 					</c:choose>
@@ -219,7 +219,7 @@
 		</main>
 	</div>
 
-	<%@ include file="footer.jsp"%>
+	<%@ include file="/common/footer.jsp"%>
 </body>
 </html>
 
