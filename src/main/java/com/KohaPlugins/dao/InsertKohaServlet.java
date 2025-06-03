@@ -30,7 +30,7 @@ public class InsertKohaServlet extends HttpServlet {
 		If not present, redirect to your login page before any API call is attempted. */
     	HttpSession session = request.getSession(false);
     	if (session.getAttribute("kohaUserid") == null) {
-			response.sendRedirect("kohaPluginLogin.jsp");
+			response.sendRedirect("/KohaPlugins/kohaPluginLogin.jsp");
 			return;
 		}
 		
@@ -144,19 +144,31 @@ public class InsertKohaServlet extends HttpServlet {
 
                 if (kohaPatron != null) {
                     int patronId = kohaPatron.optInt("patron_id");
-                    String kohaUrl = "http://seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
-                    response.sendRedirect(kohaUrl);
+                    //String kohaUrl = "http://seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
+                    //response.sendRedirect(kohaUrl);
+                    String kohaUrl = "http://www.seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter htmlOut = response.getWriter();
+                    htmlOut.println("<!DOCTYPE html>");
+                    htmlOut.println("<html><head><title>Koha Patron</title></head><body>");
+                    htmlOut.println("<script type='text/javascript'>");
+                    htmlOut.println("window.open('" + kohaUrl + "', '_blank');");
+                    htmlOut.println("window.location.href = '/KohaPlugins/patron/studentAddUpdate.jsp';");
+                    htmlOut.println("</script>");
+                    htmlOut.println("<p>If nothing happens, <a href='" + kohaUrl + "' target='_blank'>click here</a>.</p>");
+                    htmlOut.println("</body></html>");
+                    htmlOut.close();
                     return;
              } else {
                 // Failure: Show error (optional)
                 request.setAttribute("message", "Failed to insert record: " + apiResponse.toString());
-                request.getRequestDispatcher("studentAddUpdate.jsp").forward(request, response);
+                request.getRequestDispatcher("/patron/studentAddUpdate.jsp").forward(request, response);
                 return;
             }
            }
         } catch (Exception e) {
         	request.setAttribute("message", "An error occurred: " + e.getMessage());
-            request.getRequestDispatcher("studentAddUpdate.jsp").forward(request, response);
+            request.getRequestDispatcher("/patron/studentAddUpdate.jsp").forward(request, response);
             return;
         } finally {
             if (conn != null) conn.disconnect();

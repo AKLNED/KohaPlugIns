@@ -18,7 +18,7 @@
         <div class="container">
 		
 
-          <p><img src="kohaOpacHeader.png" width="1217" height="149" align="absmiddle"></p>
+          <p><img src="<%=request.getContextPath()%>/common/kohaOpacHeader.png" width="1217" height="149" align="absmiddle"></p>
       </div>
     </header>
 	

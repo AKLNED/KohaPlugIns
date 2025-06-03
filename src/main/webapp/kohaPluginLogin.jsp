@@ -11,7 +11,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <title>Koha Plugin Login</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/common/styles.css">
 <style type="text/css">
 <!--
 .style1 {
@@ -33,34 +34,35 @@
 	margin-bottom: 1em;
 }
 
-        label {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        input[type="text"], input[type="password"] {
-            font-size: 1.2em;
-            /*font-weight: bold;*/
-        }
-   
+label {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+input[type="text"], input[type="password"] {
+	font-size: 1.2em;
+	/*font-weight: bold;*/
+}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 
-	<%@ include file="header.jsp"%>
+	<%@ include file="/common/header.jsp"%>
 
-	<%@ include file="searchbox.jsp"%>
+	<%@ include file="/common/searchbox.jsp"%>
 
 	<!-- Main Layout: Sidebar and Content -->
 	<div class="main-layout">
 		<!-- Sidebar Section -->
-		<%@ include file="sidebar.jsp"%>
+		<%@ include file="/common/sidebar.jsp"%>
 
 		<!-- Main Content Section -->
 		<main class="content">
 			<section class="new-arrivals">
 				<div class="message">
 
+					<h3 class="style3">Welcome to Koha PlugIns</h3>
 
 					<%
 					String error = null;
@@ -74,34 +76,52 @@
 							// Set credentials in AuthBasic
 							AuthBasic.setCredentials(userid, password);
 
-							// Set session timeout to 15 minutes
-							AuthBasic.setSessionTimeout(request);
+							// Test credentials against Koha API (use a lightweight endpoint like /api/v1/patrons?limit=1)
 
-							// Optional: Store username in session if needed
-							//HttpSession session = request.getSession();
-							session.setAttribute("kohaUserid", userid);
+							boolean valid = AuthBasic.validateKohaCredentials();
 
-							// Forward to studentAddUpdate.jsp for user input
-							response.sendRedirect("studentAddUpdate.jsp");
-							return;
-						}
+							if (valid) {
+
+						// Set session timeout to 15 minutes
+						AuthBasic.setSessionTimeout(request);
+
+						// Optional: Store username in session if needed
+						//HttpSession session = request.getSession();
+						session.setAttribute("kohaUserid", userid);
+
+						// Forward to studentAddUpdate.jsp for user input
+						response.sendRedirect(request.getContextPath() + "/patron/studentAddUpdate.jsp");
+
+						return;
+							} else {
+						error = "Invalid Koha credentials. Please try again.";
+					%>
+
+					<%
+					}
+
+					}
 					}
 					%>
-					<h3 class="style3">Welcome to Koha PlugIns</h3>
+
 					<br>
 					<%
 					if (error != null) {
 					%>
-					<p style="color: red;"><%=error%></p>
+					<p style="color: red;"><%=error%><br>
+						<br>
+					</p>
 					<%
 					}
 					%>
-					<form method="post" action="kohaPluginLogin.jsp">
-						<label for="userid">User ID:</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
-							name="userid" id="userid" value="" required autocomplete="off" /><br />
-						<br /> <label for="password">Password:</label> <input
-							type="password" name="password" id="password" value="" required autocomplete="off" /><br />
-						<br /> <input type="submit" value="&nbsp; Login &nbsp;" />
+					<form method="post" action="kohaPluginLogin.jsp" id = "loginForm">
+						<label for="userid">User ID:</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="userid"
+							id="userid" value="" required autocomplete="off" /><br /> <br />
+						<label for="password">Password:</label> <input type="password"
+							name="password" id="password" value="" required
+							autocomplete="off" /><br /> <br /> <input type="submit"
+							value="&nbsp; Login &nbsp;" />
 					</form>
 
 				</div>
@@ -109,8 +129,9 @@
 
 		</main>
 	</div>
+	<%@ include file="/common/footer.jsp"%>
 
-	<%@ include file="footer.jsp"%>
+	
 </body>
 </html>
 
