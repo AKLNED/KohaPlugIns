@@ -2,7 +2,7 @@
     <nav class="navbar">
         <ul>
             <li></li>
-            <li><a href="https://eakl.neduet.edu.pk/">Home</a></li>
+            <li class="style2"><a href="https://eakl.neduet.edu.pk/">Home</a></li>
             <li><a href="https://eakl.neduet.edu.pk/cgi-bin/koha/opac-search.pl">Advanced search</a> </li>
             <li><a href="https://eakl.neduet.edu.pk/cgi-bin/koha/opac-topissues.pl">Most popular</a> </li>
             <li><a href="https://play.google.com/store/apps/details?id=com.neduet.ambitionapp&hl=en&pli=1">Library Mobile App </a> </li>

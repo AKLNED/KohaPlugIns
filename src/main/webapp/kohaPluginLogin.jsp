@@ -14,7 +14,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/common/styles.css">
 <style type="text/css">
-<!--
+
 .style1 {
 	color: #800000
 }
@@ -27,7 +27,10 @@
 	color: #80000;
 }
 
--->
+.style4 {
+	color: #5a7ba0;
+}
+
 .message {
 	color: blue;
 	font-weight: demibold;
@@ -35,7 +38,7 @@
 }
 
 label {
-	font-weight: bold;
+	font-weight: demibold;
 	font-size: 1.2em;
 }
 
@@ -60,11 +63,12 @@ input[type="text"], input[type="password"] {
 		<!-- Main Content Section -->
 		<main class="content">
 			<section class="new-arrivals">
-				<div class="message">
+				<div class="style2">
 
 					<h3 class="style3">Welcome to Koha PlugIns</h3>
 
 					<%
+
 					String error = null;
 					if ("POST".equalsIgnoreCase(request.getMethod())) {
 						String userid = request.getParameter("userid");
@@ -89,10 +93,27 @@ input[type="text"], input[type="password"] {
 						//HttpSession session = request.getSession();
 						session.setAttribute("kohaUserid", userid);
 
-						// Forward to studentAddUpdate.jsp for user input
-						response.sendRedirect(request.getContextPath() + "/patron/studentAddUpdate.jsp");
-
+						// Forward to relevant page based on route parameter
+						//response.sendRedirect(request.getContextPath() + "/patron/studentAddUpdate.jsp");
+						String route = request.getParameter("route");
+						//System.out.println("Route parameter: '" + route + "'");
+						
+						if (route != null) {
+							if (route.equals("patron")) {
+								response.sendRedirect(request.getContextPath() + "/patron/studentAddUpdate.jsp");
+								return;
+							} else if (route.equals("qrcheckout")) {
+								response.sendRedirect(request.getContextPath() + "/circulation/qrCheckOut.jsp");
+								return;
+							} else if (route.equals("bbkrent")) {
+								response.sendRedirect(request.getContextPath() + "/biblio/calculateRent.jsp");
+								return;
+							}
+						}
+						// Default behavior (if no route or unknown route)
+						response.sendRedirect(request.getContextPath() + "/index.jsp");
 						return;
+
 							} else {
 						error = "Invalid Koha credentials. Please try again.";
 					%>
@@ -106,17 +127,20 @@ input[type="text"], input[type="password"] {
 
 					<br>
 					<%
+					
 					if (error != null) {
 					%>
-					<p style="color: red;"><%=error%><br>
-						<br>
+					<p style="color: red;"><%=error%><br> <br>
 					</p>
 					<%
 					}
 					%>
-					<form method="post" action="kohaPluginLogin.jsp" id = "loginForm">
+					<form method="post" action="kohaPluginLogin.jsp" id="loginForm">
+					<input type="hidden" name="route" value="<%= request.getParameter("route") != null ? request.getParameter("route") : "" %>">
+					
 						<label for="userid">User ID:</label>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="userid"
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" name="userid"
 							id="userid" value="" required autocomplete="off" /><br /> <br />
 						<label for="password">Password:</label> <input type="password"
 							name="password" id="password" value="" required
@@ -131,7 +155,7 @@ input[type="text"], input[type="password"] {
 	</div>
 	<%@ include file="/common/footer.jsp"%>
 
-	
+
 </body>
 </html>
 

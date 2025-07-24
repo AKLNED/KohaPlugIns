@@ -7,7 +7,7 @@
 <title>Engr Abul Kalam Library - PlugIns</title>
 <link rel="stylesheet" href="/KohaPlugins/common/styles.css">
 <style type="text/css">
-<!--
+
 .style1 {
 	color: #800000
 }
@@ -20,7 +20,6 @@
 	color: #80000;
 }
 
--->
 .message {
 	color: blue;
 	font-weight: demibold;
@@ -43,13 +42,13 @@
 		<!-- Main Content Section -->
 		<main class="content">
 			<section class="new-arrivals">
-				<div class="message">
+				<div class="style2">
 					<h3 class="style3">Add / Update Patrons to Koha</h3>
 					<!-- Protects sensitive JSPs and servlets with a session check (e.g., check for an attribute like kohaUserid in session).
 					If not present, redirect to your login page before any API call is attempted. -->
 					<%
 					if (session.getAttribute("kohaUserid") == null) {
-						response.sendRedirect(request.getContextPath()+"/kohaPluginLogin.jsp");
+						response.sendRedirect(request.getContextPath()+"/kohaPluginLogin.jsp?route=patron");
 						return;
 					}
 					%>
@@ -75,7 +74,7 @@
 							<option value="PG">Postgraduate Student</option>
 							<option value="EMP">Faculty/Employee</option>
 						</select><br>
-						<br> <label for="studentId">Member ID:</label> <input
+						<br> <label for="studentId">Member ID/ QR Code:</label> <input
 							type="text" id="studentId" name="studentId" required><br>
 						<br> <input type="submit" value=" Lookup ">
 					</form>
