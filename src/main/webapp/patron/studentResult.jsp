@@ -45,7 +45,7 @@
 		<!-- Main Content Section -->
 		<main class="content">
 			<section class="new-arrivals">
-				<div class="message">
+				<div class="style2">
 					<h3 class="style1">Add / Update Patrons to Koha</h3>
 					<br>
 					<!-- Protects sensitive JSPs and servlets with a session check (e.g., check for an attribute like kohaUserid in session).

@@ -11,8 +11,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class AuthBasic {
-   // private static final String KOHA_USER = "imran";
-   // private static final String KOHA_PASS = "Imran123";
+    //private static final String kohaUser = "imran";
+    //private static final String kohaPass = "Imran123";
 	private static String kohaUser = "";
     private static String kohaPass = "";
     

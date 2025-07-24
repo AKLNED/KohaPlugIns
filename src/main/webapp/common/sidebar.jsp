@@ -2,7 +2,7 @@
             <h2 class="style1">Library</h2>
             <p class="style1">&nbsp;</p>
             <ul>
-              <li class="style2"><a href="Welcomemessage.html" class="style2">Welcome Message</a></li>
+              <li ><a href="Welcomemessage.html">Welcome Message</a></li>
               <li class="style2">
                 <p><a href="https://library.neduet.edu.pk/sites/default/files/NED%20Library%20Presentation.pptx">Library At A Glance</a></p>
               </li>
