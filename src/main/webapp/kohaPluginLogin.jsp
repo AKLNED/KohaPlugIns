@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<title>Koha Plugin Login</title>
+<title>Koha Plugins Login Page</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/common/styles.css">
 <style type="text/css">
@@ -107,6 +107,9 @@ input[type="text"], input[type="password"] {
 								return;
 							} else if (route.equals("bbkrent")) {
 								response.sendRedirect(request.getContextPath() + "/biblio/calculateRent.jsp");
+								return;
+							} else if (route.equals("pr")) {
+								response.sendRedirect(request.getContextPath() + "/circulation/calculatePR.jsp");
 								return;
 							}
 						}

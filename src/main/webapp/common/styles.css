@@ -182,6 +182,11 @@ h3 {
     margin-bottom: 5px;
 }
 
+h4 {
+    color: #6c90b9;  /* Soft blue for secondary headings (book titles) */
+    margin-bottom: 5px;
+}
+
 /* Footer Section */
 .footer {
     background-color: #FCF9FC;  /* pink background for footer */
