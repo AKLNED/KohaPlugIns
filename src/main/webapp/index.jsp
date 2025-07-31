@@ -65,11 +65,12 @@
             <a href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=bbkrent">
                 Book Bank Rent
             </a>
-            <a href="#">
-                Button 4
+            <a href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=pr">
+                Price Recovery
             </a>
-            <a href="#">
-                Button 5
+<%--             <a href="<%=request.getContextPath()%>/GenNextSBarcodeServlet"> --%>
+            <a href="${pageContext.request.contextPath}/GenNextSBarcodeServlet">
+                Generate Next Serial BarCode
             </a>
             <a href="#">
                 Button 6

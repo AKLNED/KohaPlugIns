@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 
 public class KohaBiblioFunctionService {
     private static final String JDBC_URL = "jdbc:mysql://192.168.14.241:3306/koha_library";
+    //private static final String JDBC_USER = "kohaplugin";
+    //private static final String JDBC_PASSWORD = "Kohaplugin1!";
     private static final String JDBC_USER = "naveen";
     private static final String JDBC_PASSWORD = "Naveen123@";
 
@@ -44,6 +46,26 @@ public class KohaBiblioFunctionService {
         try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement("SELECT policyRentBbk(?)")) {
             stmt.setString(1, barcode);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+    
+    public static int lastSerialBarcode() throws SQLException {
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT lastSerialBarcode()")) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+    
+    public static int nextSerialBarcode() throws SQLException {
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT nextSerialBarcode()")) {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) return rs.getInt(1);
             }
