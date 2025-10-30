@@ -15,7 +15,8 @@ public class KohaPatronService {
 
     public JSONObject getKohaPatronByCardNumber(String studentId) {
         try {
-            String url = "http://www.seakl.neduet.edu.pk/api/v1/patrons?cardnumber=" + studentId + "&_match=exact";
+            //String url = "http://www.seakl.neduet.edu.pk/api/v1/patrons?cardnumber=" + studentId + "&_match=exact";
+            String url = "https://eakl.neduet.edu.pk/api/v1/patrons?cardnumber=" + studentId + "&_match=exact";
             //String token = AuthManager.getAccessToken();
                        
             URI uri = new URI(url);
@@ -46,7 +47,8 @@ public class KohaPatronService {
 
     public JSONArray getExtendedAttributes(int patronId) {
         try {
-            String url = "http://www.seakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
+            //String url = "http://www.seakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
+            String url = "https://eakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
  //           String token = AuthManager.getAccessToken();
 
             URI uri = new URI(url);

@@ -9,8 +9,26 @@ import java.net.URI;
 import java.net.URLEncoder;
 //import java.util.HashMap;
 //import java.util.Map;
-
 import org.json.JSONObject;
+//Authentication Mechanism. Recommended for Koha Mobile App
+// OAuth 2.0 – Client Credentials Flow
+//The code is using OAuth 2.0 with grant_type=client_credentials.
+//In this method, the application authenticates itself to the Koha API using:
+//client_id, client_secret
+//No user credentials are involved here; it’s an application-level
+
+//Access Token Retrieval
+//A POST request is sent to the token endpoint (/api/v1/oauth/token)
+//Koha returns a JSON response containing:
+//access_token → a temporary token used for API requests
+//expires_in → lifetime of the token (in seconds)
+
+//Token Management
+//The code caches the token in accessToken and its expiry in tokenExpiry.
+//Before each request, getAccessToken() checks if the token is expired:
+//If expired or null, it calls fetchNewToken() to get a new one.
+//Otherwise, it reuses the valid token.
+
 
 public class AuthManager {
     private static final String CLIENT_ID = "c5a68108-4e82-4f4f-a843-0e769c79ad44"; // Replace with your client ID

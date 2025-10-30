@@ -15,7 +15,8 @@
 }
 
 .style2 {
-	color: #428bca
+    color: #428bca 
+	
 }
 
 .style3 {
@@ -47,7 +48,8 @@ window.onload = resetAndFocusForm;
 <% if (request.getAttribute("patronId") != null) { %>
 window.onload = function() {
     resetAndFocusForm();
-    window.open('http://www.seakl.neduet.edu.pk:8001/cgi-bin/koha/circ/circulation.pl?borrowernumber=<%=request.getAttribute("patronId")%>', '_blank');
+    //window.open('http://www.seakl.neduet.edu.pk:8001/cgi-bin/koha/circ/circulation.pl?borrowernumber=<%=request.getAttribute("patronId")%>', '_blank');
+    window.open('https://eakl.neduet.edu.pk:8001/cgi-bin/koha/circ/circulation.pl?borrowernumber=<%=request.getAttribute("patronId")%>', '_blank');
 };
 <% } %>
 

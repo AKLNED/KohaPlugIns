@@ -72,8 +72,8 @@
             <a href="${pageContext.request.contextPath}/GenNextSBarcodeServlet">
                 Generate Next Serial BarCode
             </a>
-            <a href="#">
-                Button 6
+            <a href="https://eakl.neduet.edu.pk:8001">
+               -> EXIT to Koha
             </a>
         </div>
     </div>

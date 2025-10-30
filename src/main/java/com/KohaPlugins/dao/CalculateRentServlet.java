@@ -23,11 +23,13 @@ public class CalculateRentServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession(false);
-		if (session == null || session.getAttribute("kohaUserid") == null) {
-			resp.sendRedirect(req.getContextPath() + "/kohaPluginLogin.jsp?route=bbkrent");
-			return;
-		}
+		//Session expiry check 
+		
+		  HttpSession session = req.getSession(false); if (session == null ||
+		  session.getAttribute("kohaUserid") == null) {
+		  resp.sendRedirect(req.getContextPath() +
+		  "/kohaPluginLogin.jsp?route=bbkrent"); return; }
+		 
 
 		String action = req.getParameter("action");
 

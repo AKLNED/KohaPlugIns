@@ -18,11 +18,13 @@ public class CalculatePRServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		if (session == null || session.getAttribute("kohaUserid") == null) {
-			response.sendRedirect(request.getContextPath() + "/kohaPluginLogin.jsp?route=pr");
-			return;
-		}
+		//Session expiry check 
+		
+		  HttpSession session = request.getSession(false); if (session == null ||
+		  session.getAttribute("kohaUserid") == null) {
+		  response.sendRedirect(request.getContextPath() +
+		  "/kohaPluginLogin.jsp?route=pr"); return; }
+		 
 
 		String recoveryOption = request.getParameter("recoveryOption");
 		String barcode = request.getParameter("barcode");

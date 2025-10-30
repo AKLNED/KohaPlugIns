@@ -110,7 +110,7 @@
 	        }
 
 	        // QR code URL
-	        if (value.startsWith(baseUrl)) {
+	        /* if (value.startsWith(baseUrl)) {
 	            let param = value.split("param=")[1] || "";
 	            if (value.endsWith("S")) {
 	                if (userCategory !== "UG") {
@@ -132,12 +132,57 @@
 	                    let digits = parts[0].slice(-7);
 	                    return digits;
 	                }
+	                
 	            }
+	        } */
+	        
+	        if (!value.startsWith(baseUrl)) {
+	            // not the expected base URL
+	            alert("Input does not match expected patterns.");
+	            return null;
 	        }
 
-	        alert("Input does not match expected patterns.");
-	        return null;
+	        // must end with S or P
+	        if (!(value.endsWith("S") || value.endsWith("P"))) {
+	            alert('Input URL must end with S (UG) or P (PG).');
+	            return null;
+	        }
+
+	        // category must match final character
+	        if (value.endsWith("S") && userCategory !== "UG") {
+	            alert('Category and Input do not match.');
+	            return null;
+	        }
+	        if (value.endsWith("P") && userCategory !== "PG") {
+	            alert('Category and Input do not match.');
+	            return null;
+	        }
+
+	        // get param=... (do NOT strip additional query params per your instruction)
+	        const param = (value.split("param=")[1] || "");
+
+	        // start from 4th character (1-based) -> index 3 (0-based)
+	        const startIndex = 3;
+	        const requiredLength = 7;
+
+	        if (param.length < startIndex + requiredLength) {
+	            alert('Param value too short to contain member ID.');
+	            return null;
+	        }
+
+	        const candidate = param.substr(startIndex, requiredLength); // contiguous substring
+
+	        if (!/^\d{7}$/.test(candidate)) {
+	            alert('Invalid member ID format.');
+	            return null;
+	        }
+
+	        return candidate;
 	    }
+
+	        //alert("Input does not match expected patterns.");
+	        //return null;
+	    //}
 
 	    if (userIdInput) {
 	        userIdInput.addEventListener("keydown", function(e) {
