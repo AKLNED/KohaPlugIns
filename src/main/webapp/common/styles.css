@@ -8,13 +8,15 @@
 /* Light Pink Background for Body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #FCF9FC;  /* Light dull pink */
+/*     background-color: #FCF9FC;  Light dull pink */
+    background-color: #e6f0f2;
     color: #428bca;  /* Black text */
 }
 
 /* Navigation Bar */
 .navbar {
-    background-color:#FCF9FC;  /* Light dull pink for navigation */
+/*     background-color:#FCF9FC;  Light dull pink for navigation */
+    background-color: #e6f0f2;
     padding: 10px 5%;  /* Add left and right padding to align with the header */
     display: flex;
     justify-content: flex-end;  /* Align items to the right */
@@ -36,7 +38,9 @@ body {
 }
 
 .navbar ul li a {
-    color:  #6c90b9; /*light blue slightly darker than side bar */
+/*     color:  #6c90b9; light blue slightly darker than side bar */
+    color: #337ab7;
+    
     text-decoration: none;
     font-weight: 500;
     padding: 5px 10px;
@@ -49,7 +53,8 @@ body {
 
 /* Header Section */
 .header {
-    background-color:#FCF9FC;  /* pink background */
+/*     background-color:#FCF9FC;  pink background */
+    background-color: #e6f0f2;
     color: #800000;  /* Dark dull red for text */
     margin: 0 0%;  /* Create space outside the header */
     padding: 30px 0;
@@ -75,7 +80,8 @@ body {
 
 /* Search Section */
 .search-section {
-    background-color:#FCF9FC;  /* Match the light pink background */
+/*     background-color:#FCF9FC;  Match the light pink background */
+    background-color: #e6f0f2;
     padding: 20px 0;
     text-align: center;
 	margin: 0 0%;  /* Create space outside the header */
@@ -104,7 +110,8 @@ body {
 }
 
 #searchsubmit {
-    background-color: #FCF9FC;  /* Light pink for buttons */
+/*     background-color: #FCF9FC;  Light pink for buttons */
+    background-color: #e6f0f2;
     color: #800000;  /* Dark dull red for button text */
     padding: 10px 20px;
     font-size: 1em;
@@ -189,7 +196,8 @@ h4 {
 
 /* Footer Section */
 .footer {
-    background-color: #FCF9FC;  /* pink background for footer */
+/*     background-color: #FCF9FC;  pink background for footer */
+    background-color: #e6f0f2;
     color:#800000 ;  /* Dark dull red for footer text */
     margin: 0 5%;  /* Create space outside the footer */
     padding: 20px 0;
