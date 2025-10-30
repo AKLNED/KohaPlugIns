@@ -15,17 +15,19 @@ public class QRCheckoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("kohaUserid") == null) {
-            response.sendRedirect(request.getContextPath() + "/kohaPluginLogin.jsp?route=qrcheckout");
-            return;
-        }
+    	//Session expiry check 
+		
+		  HttpSession session = request.getSession(false); if (session == null ||
+		  session.getAttribute("kohaUserid") == null) {
+		  response.sendRedirect(request.getContextPath() +
+		  "/kohaPluginLogin.jsp?route=qrcheckout"); return; }
+		 
 
         String qrInput = request.getParameter("qrCode");
         String error = null;
         String memberId = null;
 
-        if (qrInput != null && !qrInput.trim().isEmpty()) {
+        /*if (qrInput != null && !qrInput.trim().isEmpty()) {
             String value = qrInput.trim();
             String baseUrl = "https://pl.neduet.edu.pk/qrapp/qrapp.jsp?";
             if (value.matches("^\\d{3,7}$")) {
@@ -49,7 +51,50 @@ public class QRCheckoutServlet extends HttpServlet {
                         }
                     }
                 }
+            }*/
+        
+        if (qrInput != null && !qrInput.trim().isEmpty()) {
+            String value = qrInput.trim();
+
+            // Accept short numeric codes (3-7 digits) as before
+            if (value.matches("^\\d{3,7}$")) {
+                memberId = value;
+            } else {
+                String baseUrl = "https://pl.neduet.edu.pk/qrapp/qrapp.jsp?";
+                // Require input to start with the base URL AND end with 'S' or 'P'
+                if (value.startsWith(baseUrl) && (value.endsWith("S") || value.endsWith("P"))) {
+                    int p = value.indexOf("param=");
+                    if (p >= 0) {
+                        // Do NOT strip off other query params per your instruction
+                        String param = value.substring(p + "param=".length());
+
+                        final int startIndex = 3; // 4th character (1-based) -> index 3 (0-based)
+                        final int requiredLength = 7;
+
+                        // Must have at least startIndex + requiredLength characters
+                        if (param.length() >= startIndex + requiredLength) {
+                            String candidate = param.substring(startIndex, startIndex + requiredLength);
+                            // candidate must be exactly 7 contiguous digits
+                            if (candidate.matches("\\d{7}")) {
+                                memberId = candidate;
+                            } else {
+                                memberId = null;
+                            }
+                        } else {
+                            memberId = null;
+                        }
+                    } else {
+                        memberId = null;
+                    }
+                } else {
+                    // input is not a recognized URL (either wrong base or doesn't end with S/P) -> invalid
+                    memberId = null;
+                }
             }
+			/*
+			 * } else { memberId = null; }
+			 */
+        
 
             if (memberId == null) {
                 error = "Invalid QR code or Member ID format.";

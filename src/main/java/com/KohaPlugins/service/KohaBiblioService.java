@@ -11,7 +11,6 @@ import java.io.*;
 //import java.net.URL;
 
 import org.json.JSONArray;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -27,7 +26,8 @@ public class KohaBiblioService {
 
             try {
                 // Call Koha API
-                String url = "http://www.seakl.neduet.edu.pk/api/v1/items?external_id=" + barcode.trim();
+                //String url = "http://www.seakl.neduet.edu.pk/api/v1/items?external_id=" + barcode.trim();
+                String url = "https://eakl.neduet.edu.pk/api/v1/items?external_id=" + barcode.trim();
 
                 URI uri = new URI(url);
                 HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
@@ -65,7 +65,8 @@ public class KohaBiblioService {
 
         try {
             // Call Koha API
-            String url = "http://www.seakl.neduet.edu.pk/api/v1/biblios/" + biblioId;
+            //String url = "http://www.seakl.neduet.edu.pk/api/v1/biblios/" + biblioId;
+            String url = "https://eakl.neduet.edu.pk/api/v1/biblios/" + biblioId;
 
             URI uri = new URI(url);
             HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();

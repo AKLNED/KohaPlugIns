@@ -8,9 +8,12 @@ public class dbConn {
     // Method to connect to MySQL
     public static Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
         // MySQL connection details
-        String url = "jdbc:mysql://192.168.14.241:3306/koha_library";  // Backup Koha Credentials for MySQL database details
-        String user = "naveen";
-        String password = "Naveen123@";
+        //String url = "jdbc:mysql://192.168.14.241:3306/koha_library";  // Backup Koha Credentials for MySQL database details
+        String url = "jdbc:mysql://192.168.14.237:3306/koha_library";  // Live Koha Credentials for MySQL database details
+        //String user = "naveen";
+        //String password = "Naveen123@";
+        String user = "kohaplugin";
+        String password = "Kohaplugin1!";
 
         // Load the MySQL driver
         Class.forName("com.mysql.cj.jdbc.Driver");

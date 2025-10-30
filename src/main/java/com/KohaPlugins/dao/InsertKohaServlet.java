@@ -87,7 +87,8 @@ public class InsertKohaServlet extends HttpServlet {
         //out.println("<pre>" + json.toString(2) + "</pre>");
         
         // Prepare Koha API call
-        String apiUrl = "http://seakl.neduet.edu.pk/api/v1/patrons";
+        //String apiUrl = "http://seakl.neduet.edu.pk/api/v1/patrons";
+        String apiUrl = "https://eakl.neduet.edu.pk/api/v1/patrons";
         
         //String token = null;
         try {
@@ -146,7 +147,8 @@ public class InsertKohaServlet extends HttpServlet {
                     int patronId = kohaPatron.optInt("patron_id");
                     //String kohaUrl = "http://seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
                     //response.sendRedirect(kohaUrl);
-                    String kohaUrl = "http://www.seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
+                    //String kohaUrl = "http://www.seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
+                    String kohaUrl = "https://eakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
                     response.setContentType("text/html;charset=UTF-8");
                     PrintWriter htmlOut = response.getWriter();
                     htmlOut.println("<!DOCTYPE html>");

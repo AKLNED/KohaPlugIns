@@ -29,17 +29,14 @@ public class AuthBasic {
 
     public static void setSessionTimeout(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setMaxInactiveInterval(10 * 60); // 10 minutes in seconds
+        session.setMaxInactiveInterval(60 * 60); // 30 minutes in seconds
     }
     
  // New method: check credentials by making a simple API call
     public static boolean validateKohaCredentials() {
         try {
-            //URL url = new URL(testUrl);
-        	//String testUrl1 = "http://www.seakl.neduet.edu.pk/api/v1/libraries";
-        	//URI uri = new URI(testUrl);         // Validates the URL and parses it
-        	//HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
-        	String testUrl = "http://www.seakl.neduet.edu.pk/api/v1/libraries";
+            //String testUrl = "http://www.seakl.neduet.edu.pk/api/v1/libraries";
+            String testUrl = "https://eakl.neduet.edu.pk/api/v1/libraries";
         	HttpURLConnection conn = null;
         	try {
         	    URI uri = new URI(testUrl);

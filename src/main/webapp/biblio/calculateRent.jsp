@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%
-//Session expiry check
+//Session expiry check 
 if (session == null || session.getAttribute("kohaUserid") == null) {
 	response.sendRedirect(request.getContextPath() + "/kohaPluginLogin.jsp?route=bbkrent");
 	return;

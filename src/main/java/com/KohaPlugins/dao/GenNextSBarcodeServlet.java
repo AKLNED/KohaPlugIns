@@ -22,11 +22,13 @@ public class GenNextSBarcodeServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession(false);
-		if (session == null || session.getAttribute("kohaUserid") == null) {
-			resp.sendRedirect(req.getContextPath() + "/kohaPluginLogin.jsp?route=nextser");
-			return;
-		}
+		//Session expiry check 
+		
+		  HttpSession session = req.getSession(false); if (session == null ||
+		  session.getAttribute("kohaUserid") == null) {
+		  resp.sendRedirect(req.getContextPath() +
+		  "/kohaPluginLogin.jsp?route=nextser"); return; }
+		 
 
 		int lBarcode = 0;
 		int nBarcode = 0;

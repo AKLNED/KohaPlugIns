@@ -4,11 +4,12 @@ import java.sql.*;
 import java.math.BigDecimal;
 
 public class KohaBiblioFunctionService {
-    private static final String JDBC_URL = "jdbc:mysql://192.168.14.241:3306/koha_library";
-    //private static final String JDBC_USER = "kohaplugin";
-    //private static final String JDBC_PASSWORD = "Kohaplugin1!";
-    private static final String JDBC_USER = "naveen";
-    private static final String JDBC_PASSWORD = "Naveen123@";
+    //private static final String JDBC_URL = "jdbc:mysql://192.168.14.241:3306/koha_library";
+	private static final String JDBC_URL = "jdbc:mysql://192.168.14.237:3306/koha_library";
+    private static final String JDBC_USER = "kohaplugin";
+    private static final String JDBC_PASSWORD = "Kohaplugin1!";
+    //private static final String JDBC_USER = "naveen";
+    //private static final String JDBC_PASSWORD = "Naveen123@";
 
     static {
         try {
