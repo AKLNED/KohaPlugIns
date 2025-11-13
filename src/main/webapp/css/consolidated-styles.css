@@ -1,0 +1,720 @@
+/* consolidated-styles.css - generated automatically */
+:root {
+	--bg: #e6f0f2;
+	--text: #333333;
+	--heading: #004d66;
+	--link: #007a99;
+	--link-hover: #005f73;
+	--border: #c0d9dc;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: var(--bg);
+	font-family: "Segoe UI", "Open Sans", sans-serif;
+	color: var(--text);
+	min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: var(--heading);
+	margin: 0 0 0.5rem 0;
+}
+
+.h4-demibold {
+  font-weight: 600;        /* DemiBold weight */
+  font-size: 1.2rem;       /* optional — keep consistent with h4 sizing */
+  color: inherit;       /* matches parent text color */
+  margin-bottom:  0 0 0.5rem 0;   /* match h4 spacing */
+  text-decoration: underline; /* Adds underline */
+}
+
+a {
+	color: var(--link);
+	text-decoration: underline;
+}
+
+a:hover, a:focus {
+	color: var(--link-hover);
+}
+
+button, .btn {
+	background: var(--link);
+	color: #fff;
+	border: 1px solid var(--border);
+	padding: 0.5rem 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+button:hover, .btn:hover {
+	background: var(--link-hover);
+	color: #fff; /* ✅ keep text visible */
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid var(--border);
+	padding: 0.35rem 0.5rem;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 1rem;
+}
+/* end theme base */
+
+/* ========================
+   Navigation Bar (Base Theme)
+   ======================== */
+.navbar {
+	background-color: var(--heading); /* Deep teal header color */
+	padding: 10px 5%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	gap: 1rem;
+}
+
+.navbar ul li {
+	display: inline-block;
+}
+
+.navbar ul li a {
+	color: var(--bg); /* Soft background tone text for contrast */
+	text-decoration: none;
+	font-weight: 500;
+	padding: 6px 12px;
+	border-radius: 6px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar ul li a:hover, .navbar ul li a:focus {
+	background-color: var(--link-hover); /* Muted teal hover background */
+	color: #ffffff; /* White text on hover */
+}
+
+.navbar ul li a.active {
+	background-color: var(--link); /* Accent color for active item */
+	color: #ffffff;
+}
+
+/* End of Navigation Bar (Base Theme) */
+
+/* ========================
+   Header Section (Base Theme)
+   ======================== */
+
+/* ============================================================
+   HEADER SECTION
+   ------------------------------------------------------------
+   This section styles the top header banner, logo/title, and
+   any optional navigation area placed inside it.
+   Uses base theme colors and responsive layout.
+   ============================================================ */
+.header {
+	background-color: var(--bg); /* Soft background tone */
+	color: var(--heading); /* Deep teal text color */
+	text-align: left; /*  Left-align content */
+	padding: 20px 5%;                 /* Horizontal alignment same as main-layout */
+	margin: 0;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle depth shadow */
+}
+
+.header .container {
+  margin: 0;           /* cancels centering (margin: 0 auto) */
+  padding: 0;          /* removes extra horizontal padding */
+  max-width: 100%;     /* allows full-width expansion */
+}
+
+
+
+/* Header Title Styling */
+.site-title {
+  font-family: "Merriweather", "Georgia", serif; /* Academic serif */
+  font-size: 2.2rem; 
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--heading); /* Deep teal from your palette */
+  text-shadow: 1px 1px 2px rgba(0, 77, 102, 0.15); 
+  margin: 0;
+  padding: 0;
+  /*text-align: center;*/
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Subtle hover effect */
+.site-title:hover {
+  color: var(--link-hover);
+  text-shadow: 1px 1px 4px rgba(0, 90, 115, 0.25);
+}
+
+
+/* End of Header Section (Base Theme) */
+
+
+/* ============================================================
+ Layout container for content centering 
+ ============================================================ */
+
+.container {
+	width: 100%;
+	max-width: 1200px; /* Keeps layout readable on large screens */
+	margin: 0 auto; /* Centers horizontally */
+	padding: 0 1rem; /* Adds side spacing */
+	box-sizing: border-box;
+}
+
+/* Header text (if used) */
+.header h1 {
+	font-size: 2.2em;
+	font-weight: 600;
+	margin-bottom: 10px;
+	color: var(--heading);
+}
+
+.header p {
+	font-size: 1.1em;
+	color: var(--text);
+	margin: 0;
+}
+
+/* Responsive header image */
+.responsive-header-img {
+	width: 100%; /* Scales image to full container width */
+	height: auto; /* Maintains aspect ratio */
+	display: block; /* Removes inline gap */
+	border-radius: 6px; /* Optional: soft edges */
+}
+
+/* Optional: Add variation if header includes navigation below logo */
+.header-with-nav {
+	background-color: var(--heading);
+	color: var(--bg);
+	padding: 20px 0;
+}
+
+/* Responsive adjustments */
+@media ( max-width : 768px) {
+	.header {
+		padding: 20px 0;
+	}
+	.header h1 {
+		font-size: 1.8em;
+	}
+}
+
+/* End of Header Section (Base Theme) */
+
+/* ============================================================
+   SEARCH SECTION
+   ------------------------------------------------------------
+   Theme-aligned version using base colors and consistent spacing.
+   Keeps same layout and centering but applies teal/blue palette.
+   ============================================================ */
+.search-section {
+	background-color: var(--bg); /* Light background tone */
+	padding: 10px 5%;                 /* Match header padding */
+	text-align: left;                 /* Align search to the left */
+	margin: 0; /* No extra outer margin */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	border-bottom: 1px solid var(--border);
+	width: 100%;             /* ✅ Ensure full width */
+  box-sizing: border-box;  /* Ensure padding doesn’t shift width */
+}
+
+.search-title {
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+
+/* Search form layout */
+#searchform {
+	display: flex;
+	/*justify-content: center;*/
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap; /* Responsive wrapping */
+	margin: 0;               /* ✅ Remove browser default margins */
+  padding: 0;              /* Prevent internal offset */
+  width: 100%;             /* Keep consistent alignment */
+  box-sizing: border-box;
+}
+
+/* Search text input */
+#searchform input[type="text"] {
+	padding: 10px;
+	width: 300px;
+	font-size: 1em;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	background-color: #fff;
+	color: var(--text);
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#searchform input[type="text"]:focus {
+	border-color: var(--link);
+	box-shadow: 0 0 5px rgba(0, 122, 153, 0.3);
+	outline: none;
+}
+
+/* Dropdown or select box */
+#masthead_search {
+	padding: 10px;
+	font-size: 1em;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	color: var(--text);
+	background-color: #fff;
+}
+
+/* Submit button */
+#searchsubmit {
+	background-color: var(--link); /* Primary theme color */
+	color: #fff;
+	padding: 10px 20px;
+	font-size: 1em;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#searchsubmit:hover {
+	background-color: var(--link-hover); /* Slightly darker on hover */
+	transform: translateY(-1px);
+}
+
+/* Responsive tweaks */
+@media ( max-width : 600px) {
+	#searchform input[type="text"] {
+		width: 100%;
+		max-width: 90%;
+	}
+	#searchform {
+		flex-direction: column;
+		gap: 8px;
+	}
+}
+
+/* End of Search Section (Base Theme) */
+
+/* ============================================================
+   MAIN LAYOUT: SIDEBAR AND CONTENT AREA
+   ------------------------------------------------------------
+   Theme-aligned container for the page body.
+   Uses base colors, soft shadow, and consistent spacing.
+   ============================================================ */
+.main-layout {
+	display: flex;
+	flex-wrap: wrap; /* Keep sidebar + content in one row */
+	gap: 20px; /* Space between sidebar & content */
+	padding: 20px 5%;  /* inner padding for spacing */
+	background-color: var(--bg); /* Soft background tone */
+	margin: 0;  /* Remove 5% ✅ removes outer white gap */
+	border: 1px solid var(--border); /* Subtle border from theme */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Gentle depth shadow */
+	border-radius: 8px; /* Rounded corners for modern look */
+	box-sizing: border-box;
+	width: 100%;                     /* ✅ ensures full stretch */
+	
+}
+
+/* Content area styling */
+.content {
+	flex: 1; /* Take remaining width after sidebar */
+	background-color: #fff; /* Contrast against sidebar */
+	padding: 20px;
+	border-radius: 6px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	display: flex;             /* enables vertical layout for inner sections */
+    flex-direction: column;    /* stack .forms-section and .message-section */
+}
+
+/* Ensure sidebar and main content stack neatly on smaller screens */
+@media ( max-width : 992px) {
+	.main-layout {
+		flex-direction: column;
+		margin: 0 2%;
+		padding: 15px;
+	}
+}
+
+/* ============================================================
+   SIDEBAR SECTION
+   ------------------------------------------------------------
+   Clean, theme-aligned sidebar using base palette variables.
+   Consistent with header, search, and content sections.
+   ============================================================ */
+.sidebar {
+	width: 250px;
+	background-color: #ffffff; /* Keep sidebar readable and bright */
+	padding: 20px;
+	border-right: 1px solid var(--border); /* Subtle divider line */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Gentle depth */
+	box-sizing: border-box;
+}
+
+/* Sidebar headings */
+.sidebar h3 {
+	color: var(--heading); /* Deep teal from theme */
+	margin-bottom: 15px;
+	font-size: 1.2rem;
+	border-bottom: 2px solid var(--link); /* Accent underline */
+	padding-bottom: 6px;
+}
+
+/* List styling */
+.sidebar ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sidebar ul li {
+	margin-bottom: 10px;
+}
+
+/* Sidebar links */
+.sidebar ul li a {
+	color: var(--link); /* Primary link color */
+	text-decoration: none;
+	font-weight: 500;
+	display: block; /* Easier to click full width */
+	padding: 6px 0;
+	border-radius: 4px;
+	transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover, .sidebar ul li a:focus {
+	color: #fff; /* White text */
+	background-color: var(--link-hover); /* Hover accent */
+	text-decoration: none;
+}
+
+/* Optional: highlight active link */
+.sidebar ul li a.active {
+	color: #fff;
+	background-color: var(--link);
+	font-weight: 600;
+}
+
+/* Responsive sidebar for smaller screens */
+@media ( max-width : 768px) {
+	.sidebar {
+		width: 100%;
+		border-right: none;
+		border-bottom: 1px solid var(--border);
+		box-shadow: none;
+	}
+}
+
+/* End of Sidebar Section (Base Theme) */
+
+/* ============================================================
+   FORM SECTIONS (Shared with Search Box)
+   ============================================================ */
+.forms-section {
+	background-color: var(--bg); /* or #e6f0f2 */
+	padding: 20px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	text-align: left;
+	border: 1px solid var(--border);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	
+}
+
+.forms-standard {
+	display: flex;
+	/*justify-content: flex-start;*/
+	gap: 10px;
+	/*flex-wrap: wrap;*/
+	margin-top: 10px;
+	min-height: 100px; /* Ensures visibility */
+	flex-direction: column;    /*   ✅ stack inputs vertically*/
+    align-items: flex-start;     /* ✅ left align form fields */
+    font-family: "Segoe UI", "Open Sans", sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+/* Each label + input group sits in one line */
+.form-row {
+  display: flex;
+  align-items: center;         /* Vertically center label and input */
+  gap: 10px;                   /* Space between label and input */
+  flex-wrap: wrap;             /* Wrap neatly on smaller screens */
+}
+
+/* Group buttons side by side */
+.button-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.forms-standard label {
+	color: var(--heading);
+	font-weight: 500;
+}
+
+.forms-standard input[type="text"], 
+.forms-standard 	select, 
+.forms-standard input[type="number"], 
+.forms-standard 	input[type="password"],
+.forms-standard 	input[type="email"] {
+	padding: 10px;
+	width: 300px;
+	font-size: 1em;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	background-color: #fff;
+	color: var(--text);
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.forms-standard  input[type="text"]:focus, 
+.forms-standard  select:focus,
+.forms-standard  input[type="number"]:focus, 
+.forms-standard  input[type="email"]:focus
+	{
+	border-color: var(--link);
+	box-shadow: 0 0 5px rgba(0, 122, 153, 0.3);
+	outline: none;
+}
+
+.forms-standard  input[type="submit"], 
+.forms-standard  button {
+	background-color: var(--link);
+	color: #fff;
+	padding: 10px 20px;
+	font-size: 1em;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.forms-standard  input[type="submit"]:hover, 
+.forms-standard  button:hover
+	{
+	background-color: var(--link-hover);
+	transform: translateY(-1px);
+}
+.forms-section .info, .message-section .success, .message-section .error
+	{
+	padding: 12px 18px;
+	border-radius: 6px;
+	margin-bottom: 15px;
+	display: inline-block;
+	font-weight: 500;
+}
+
+.forms-section .info {
+	background-color: #e0f7fa;
+	color: var(--heading);
+	border: 1px solid var(--border);
+}
+
+.forms-section .success {
+	background-color: #d1f0e3;
+	color: #155724;
+	border: 1px solid #b2e0c7;
+}
+
+.forms-section .error {
+	background-color: #fdecea;
+	color: #c0392b;
+	border: 1px solid #f5c6cb;
+}
+
+.toggle-form {
+  display: none;
+}
+.toggle-form.active {
+  display: block;
+}
+
+
+/* ============================================================
+   MESSAGE SECTION (Success / Error / Info feedback)
+   ============================================================ */
+.message-section {
+	background-color: var(--bg); /* Same as form section */
+	color: var(--text);
+	padding: 20px; /* Add consistent padding */
+	border-radius: 8px; /* Match form section */
+	border: 1px solid var(--border); /* Subtle boundary */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	
+	display: flex;
+	justify-content: left;
+	align-items: left;
+	flex-direction: column;
+	margin-bottom: 20px; /* Optional, to separate from footer */
+	
+	flex-grow: 1;              /* ✅ stretch to fill remaining height */
+    min-height: 120px;         /* ensure visibility even when empty */
+    	}
+	
+	
+
+.message-section .info, .message-section .success, .message-section .error
+	{
+	padding: 12px 18px;
+	border-radius: 6px;
+	margin-bottom: 15px;
+	display: inline-block;
+	font-weight: 500;
+}
+
+.message-section .info {
+	background-color: #e0f7fa;
+	color: var(--heading);
+	border: 1px solid var(--border);
+}
+
+.message-section .success {
+	background-color: #d1f0e3;
+	color: #155724;
+	border: 1px solid #b2e0c7;
+}
+
+.message-section .error {
+	background-color: #fdecea;
+	color: #c0392b;
+	border: 1px solid #f5c6cb;
+}
+
+/* ============================================================
+   FOOTER SECTION — Matches overall theme
+   ============================================================ */
+.footer {
+	background-color: var(--bg); /* same light theme background (#e6f0f2) */
+	color: var(--heading); /* dark slate text for readability */
+	/*margin: 0 5%;  align with main layout margins */
+	padding: 25px 0; /* balanced vertical spacing */
+	text-align: center;
+	border-top: 1px solid var(--border); /* subtle separation line */
+	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+	/* soft upward shadow for depth */
+	font-size: 0.95rem;
+	line-height: 1.6;
+	border-radius: 0 0 8px 8px; /* rounded bottom corners for polish */
+	/* ✅ Ensure centering works even inside flex parents */
+	display: block;
+	width: 100%;
+}
+
+
+/* Footer text and links */
+.footer p {
+	margin: 0;
+	color: var(--text);
+}
+
+.footer a {
+	color: var(--link);
+	text-decoration: none;
+	transition: color 0.3s ease;
+	text-align: center;
+}
+
+.footer a:hover {
+	color: var(--link-hover);
+	text-decoration: underline;
+}
+
+
+/* ============================================================
+   BUTTON GRID — Matches overall theme
+   ============================================================ */
+   
+.button-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr; /* two per row */
+	gap: 1.2em;
+	margin-top: 1.5em;
+	width: 50%;                       /* ✅ grid spans half the content area */
+	margin-left: auto;                /* ✅ centers the grid horizontally */
+	margin-right: auto;
+	text-align: center;
+}
+
+@media (max-width: 600px) {
+	.button-grid {
+		grid-template-columns: 1fr; /* single column on mobile */
+	}
+}
+
+
+/* ============================================================
+   RADIO GROUPS - THEME CONSISTENT
+   ============================================================ */
+.radio-group {
+	display: flex;
+	align-items: center;
+	gap: 2rem;                      /* space between each radio option */
+	padding: 10px 0;
+	margin-top: 10px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background-color: #fff;         /* subtle contrast against var(--bg) */
+	/*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);*/
+	width: fit-content;             /* wraps neatly around radio options */
+	background-color: var(--bg);
+	box-shadow: none;
+}
+
+.radio-group label {
+	display: flex;
+	align-items: center;
+	gap: 6px;                       /* small space between radio and label text */
+	font-size: 1rem;
+	color: var(--heading);          /* academic teal tone */
+	cursor: pointer;
+	user-select: none;
+}
+
+/* Custom radio button appearance */
+.radio-group input[type="radio"] {
+	accent-color: var(--link);      /* ✅ modern browser support */
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+/* Hover / focus for better UX */
+.radio-group label:hover {
+	color: var(--link-hover);
+	transition: color 0.2s ease;
+}
+
+@media (max-width: 600px) {
+	.radio-group {
+		flex-direction: column;     /* stack vertically on smaller screens */
+		align-items: flex-start;
+		gap: 0.6rem;
+		padding: 12px;
+	}
+}

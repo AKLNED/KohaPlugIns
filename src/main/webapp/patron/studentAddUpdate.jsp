@@ -4,29 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>EAKL - Patron PlugIn</title>
-<link rel="stylesheet" href="/KohaPlugins/common/styles.css">
-<style type="text/css">
-
-.style1 {
-	color: #800000
-}
-
-.style2 {
-	color: #428bca
-}
-
-.style3 {
-	color: #80000;
-}
-
-.message {
-	color: blue;
-	font-weight: demibold;
-	margin-bottom: 1em;
-}
-</style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>EAKL - Patron PlugIn</title>
+
+<!-- <link rel="stylesheet" href="/KohaPlugins/common/styles.css"> -->
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/consolidated-styles.css">
+
+<script type="text/javascript">
+
+<!-- Protects sensitive JSPs and servlets with a session check (e.g., check for an attribute like kohaUserid in session).
+If not present, redirect to your login page before any API call is attempted. -->
+
+<%
+if (session.getAttribute("kohaUserid") == null) {
+	response.sendRedirect(request.getContextPath()+"/kohaPluginLogin.jsp?route=patron");
+	return;
+}
+%>
+<!-- Checks for response message from InsertKohaServlet in case of error in insertion -->
+					<%
+					String message = (String) request.getAttribute("message");
+					%>
+</script>
+
 </head>
 <body>
 
@@ -41,46 +43,39 @@
 
 		<!-- Main Content Section -->
 		<main class="content">
-			<section class="new-arrivals">
-				<div class="style2">
-					<h3 class="style3">Add / Update Patrons to Koha</h3>
-					<!-- Protects sensitive JSPs and servlets with a session check (e.g., check for an attribute like kohaUserid in session).
-					If not present, redirect to your login page before any API call is attempted. -->
-					<%
-					if (session.getAttribute("kohaUserid") == null) {
-						response.sendRedirect(request.getContextPath()+"/kohaPluginLogin.jsp?route=patron");
-						return;
-					}
-					%>
-					<!-- Checks for response message from InsertKohaServlet in case of error in insertion -->
-					<%
-					String message = (String) request.getAttribute("message");
-					%>
-					<%
-					if (message != null) {
-					%>
-					<div class="success">
-						<br><%=message%></div>
-					<%
-					}
-					%>
+			<section class="forms-section">
+				<div >
+					<h3 >Add / Update Patrons to Koha</h3>
 					<br>
+					
+					
 					<!--  <h2>Student Information Lookup</h2>-->
-					<form action="/KohaPlugins/StudentLookupServlet" method="POST" id="loginForm">
+					<form action="/KohaPlugins/StudentLookupServlet" method="POST" id="loginForm" class="forms-standard">
 
-						<label for="category">Category:</label> <select name="category"
+						<div class="form-row"><label for="category">Category:</label> <select name="category"
 							id="category">
 							<option value="UG">Undergraduate Student</option>
 							<option value="PG">Postgraduate Student</option>
 							<option value="EMP">Faculty/Employee</option>
-						</select><br>
-						<br> <label for="studentId">Member ID/ QR Code:</label> <input
-							type="text" id="studentId" name="studentId" required><br>
-						<br> <input type="submit" value=" Lookup ">
+						</select></div>
+						<div class="form-row"> <label for="studentId">Member ID/ QR Code:</label> <input
+							type="text" id="studentId" name="studentId" required></div></br>
+						<div class="button-row"> <input type="submit" value=" Lookup "></div>
 					</form>
 				</div>
 			</section>
-			<section class="announcements"></section>
+			<section class="message-section">
+			
+			<%
+					if (message != null) {
+					%>
+					<div class="error">
+						<%=message%></div>
+					<%
+					}
+					%>
+			
+			</section>
 		</main>
 	</div>
 

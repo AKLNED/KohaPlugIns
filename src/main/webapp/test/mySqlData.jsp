@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>MySQL Connection Example</title>
+<link rel="stylesheet" href="css/consolidated-styles.css">
 </head>
 <body>
     <h1>Database Connection in JSP</h1>

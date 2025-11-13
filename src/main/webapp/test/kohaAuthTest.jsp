@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Koha Endpoint Authentication Test</title>
+<link rel="stylesheet" href="css/consolidated-styles.css">
 </head>
 <body>
     <h2>Koha Endpoint Authentication Test</h2>
@@ -22,12 +23,12 @@
     <%
         if (error != null) {
     %>
-        <p style="color: red;">Error obtaining access token: <%= error %></p>
+        <p class="c_f479d19b">Error obtaining access token: <%= error %></p>
     <%
         } else {
     %>
-        <p style="color: green;">Access token obtained successfully!</p>
-        <p><strong>Access Token:</strong> <code style="word-break:break-all;"><%= token %></code></p>
+        <p class="c_e24d296e">Access token obtained successfully!</p>
+        <p><strong>Access Token:</strong> <code class="c_49a359d2"><%= token %></code></p>
         <p><strong>Token Expiry (ms since epoch):</strong> <%= expiry %></p>
         <p><strong>Token Expiry (date/time):</strong> <%= (new java.util.Date(expiry)).toString() %></p>
     <%

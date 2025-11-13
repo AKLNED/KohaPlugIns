@@ -6,76 +6,50 @@
     <meta charset="UTF-8">
     <title>KohaPlugIns Home</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/common/styles.css">
-    <style>
-        body {
-            background: #f8f8f8;
-        }
-        .home-links {
-            margin: 2em auto;
-            max-width: 500px;
-            padding: 2em;
-            background: #fff;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(128,0,0,0.05);
-            border: 1px solid #eee;
-        }
-        .home-links h2 {
-            margin-bottom: 1em;
-            color: #800000;
-            letter-spacing: 1px;
-        }
-        .button-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2em;
-            margin-top: 1.5em;
-        }
-        .home-links a {
-            display: block;
-            padding: 1.1em 0.5em;
-            background: #5ca6d6; /* Koha blue */
-            color: #fff; /* white text */
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 1.1em;
-            font-weight: bold;
-            transition: background 0.2s, color 0.2s, border 0.2s;
-            border: 2px solid #428bca;
-            box-sizing: border-box;
-        }
-        .home-links a:hover {
-            background: #fff;
-            color: #800000;
-            border-color: #800000;
-        }
-    </style>
+    
+<link rel="stylesheet" href="css/consolidated-styles.css">
 </head>
 <body>
     <%@ include file="/common/header.jsp" %>
-    <div class="home-links">
+    <%@ include file="/common/searchbox.jsp"%>
+    
+    <!-- Main Layout: Sidebar and Content -->
+	<div class="main-layout">
+		<!-- Sidebar Section -->
+		<%@ include file="/common/sidebar.jsp"%>
+
+		<!-- Main Content Section -->
+		<main class="content">
+			<section class="forms-section">
+    <div >
         <h2>Welcome to Koha PlugIns</h2>
         <div class="button-grid">
-            <a href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=patron">
+            <a class="btn" href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=patron" target="_blank" rel="noopener noreferrer">
                 Student Add/Update
             </a>
-            <a href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=qrcheckout">
+            <a class="btn" href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=qrcheckout" target="_blank" rel="noopener noreferrer">
                 QR Code Check-Out
             </a>
-            <a href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=bbkrent">
+            <a class="btn" href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=bbkrent" target="_blank" rel="noopener noreferrer">
                 Book Bank Rent
             </a>
-            <a href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=pr">
+            <a class="btn" href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=pr" target="_blank" rel="noopener noreferrer">
                 Price Recovery
             </a>
 <%--             <a href="<%=request.getContextPath()%>/GenNextSBarcodeServlet"> --%>
-            <a href="${pageContext.request.contextPath}/GenNextSBarcodeServlet">
+            <a class="btn" href="${pageContext.request.contextPath}/GenNextSBarcodeServlet" target="_blank" rel="noopener noreferrer">
                 Generate Next Serial BarCode
             </a>
-            <a href="https://eakl.neduet.edu.pk:8001">
+            <a class="btn" href="https://eakl.neduet.edu.pk:8001" target="_blank" rel="noopener noreferrer">
                -> EXIT to Koha
             </a>
         </div>
     </div>
+    </section>
+    <section class="message-section">	</section>
+			
+    </main>
+    </div>
+    	<%@ include file="/common/footer.jsp"%>
 </body>
 </html>

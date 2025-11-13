@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Oracle 10g Connection Usage Example</title>
+<link rel="stylesheet" href="css/consolidated-styles.css">
 </head>
 <body>
 	
