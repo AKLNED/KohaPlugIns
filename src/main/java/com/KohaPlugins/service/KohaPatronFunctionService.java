@@ -12,19 +12,19 @@ import java.util.List;
 
 public class KohaPatronFunctionService {
     //private static final String JDBC_URL = "jdbc:mysql://192.168.14.241:3306/koha_library";
-	private static final String JDBC_URL = "jdbc:mysql://192.168.14.237:3306/koha_library";
-    private static final String JDBC_USER = "kohaplugin";
-    private static final String JDBC_PASSWORD = "Kohaplugin1!";
+	//private static final String JDBC_URL = "jdbc:mysql://192.168.14.237:3306/koha_library";
+    //private static final String JDBC_USER = "kohaplugin";
+    //private static final String JDBC_PASSWORD = "Kohaplugin1!";
     //private static final String JDBC_USER = "naveen";
     //private static final String JDBC_PASSWORD = "Naveen123@";
 
-    static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("MySQL JDBC Driver not found.", e);
-        }
-    }
+//    static {
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException("MySQL JDBC Driver not found.", e);
+//        }
+//    }
 
     
   //--------------------------------------------------------------------
@@ -32,10 +32,18 @@ public class KohaPatronFunctionService {
     
     public JSONArray fetchDefaultersAsJsonArray() throws SQLException {
     	String sql = "SELECT list_defaulters_in_json()";
+    	Connection conn = null;
+    	Statement st = null;
+        ResultSet rs = null;
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+        try 
+//        (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+//             Statement st = conn.createStatement();
+//             ResultSet rs = st.executeQuery(sql)) 
+        {
+        	conn = dbConn.getMySQLConnection();
+        	st = conn.createStatement();
+            rs = st.executeQuery(sql);
 
             if (!rs.next()) {
                 return new JSONArray();
@@ -88,6 +96,13 @@ public class KohaPatronFunctionService {
             }
 
             return sorted;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JSONArray();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception ex) {}
+            try { if (st != null) st.close(); } catch (Exception ex) {}
+            try { if (conn != null) conn.close(); } catch (Exception ex) {}
         }
     }
 
