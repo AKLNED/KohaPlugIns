@@ -24,6 +24,12 @@
     <div >
         <h2>Welcome to Koha PlugIns</h2>
         <div class="button-grid">
+            <a class="btn" href="${pageContext.request.contextPath}/DefaulterListServlet" target="_blank" rel="noopener noreferrer">
+                Block Semester Registration
+            </a>
+            <a class="btn" href="<%=request.getContextPath()%>/ListBlockedDefaulterServlet" target="_blank" rel="noopener noreferrer">
+                Unblock Semester Registration
+            </a>
             <a class="btn" href="<%=request.getContextPath()%>/kohaPluginLogin.jsp?route=patron" target="_blank" rel="noopener noreferrer">
                 Student Add/Update
             </a>

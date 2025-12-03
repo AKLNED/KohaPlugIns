@@ -104,33 +104,7 @@ if (session.getAttribute("kohaUserid") == null) {
 	            return value;
 	        }
 
-	        // QR code URL
-	        /* if (value.startsWith(baseUrl)) {
-	            let param = value.split("param=")[1] || "";
-	            if (value.endsWith("S")) {
-	                if (userCategory !== "UG") {
-	                    alert('Category and Input do not match.');
-	                    return null;
-	                }
-	                let parts = param.split("R");
-	                if (parts.length > 1) {
-	                    let digits = parts[0].slice(-7);
-	                    return digits;
-	                }
-	            } else if (value.endsWith("P")) {
-	                if (userCategory !== "PG") {
-	                    alert('Category and Input do not match.');
-	                    return null;
-	                }
-	                let parts = param.split("i");
-	                if (parts.length > 1) {
-	                    let digits = parts[0].slice(-7);
-	                    return digits;
-	                }
-	                
-	            }
-	        } */
-	        
+	        	        
 	        if (!value.startsWith(baseUrl)) {
 	            // not the expected base URL
 	            alert("Input does not match expected patterns.");

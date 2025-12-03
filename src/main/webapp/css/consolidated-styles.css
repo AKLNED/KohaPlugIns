@@ -63,6 +63,51 @@ th, td {
 	padding: 0.35rem 0.5rem;
 }
 
+
+/* ============================
+   TABLE: STRIPED + HEADER STYLE
+   ============================ */
+
+/* Apply to any table using class="striped-table" */
+table.striped-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background-color: #fff;
+}
+
+/* Header */
+table.striped-table thead th {
+    background-color: var(--heading); /* deep teal */
+    color: #ffffff;
+    font-weight: 600;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid var(--border);
+}
+
+/* Body rows */
+table.striped-table tbody tr:nth-child(odd) {
+    background-color: #f3f8f9; /* soft alternate tint */
+}
+
+table.striped-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Hover effect */
+table.striped-table tbody tr:hover {
+    background-color: #e1f4f7;
+}
+
+/* Cells */
+table.striped-table td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+}
+
+
+
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
