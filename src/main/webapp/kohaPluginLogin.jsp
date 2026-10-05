@@ -73,31 +73,31 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
 		} else {
 			//error = "Invalid Koha credentials. Please try again.";
 					
-			String message;
+			//String message= null;
     switch (responseCode) {
         case 200:
-            message = "✅ Connection successful. Koha credentials are valid.";
+        	error = "✅ Connection successful. Koha credentials are valid."  + responseCode;
             break;
         case 401:
-            message = "❌ Authentication failed. Please check your Koha username or password.";
+        	error = "❌ Authentication failed. Please check your Koha username or password."  + responseCode;
             break;
         case 403:
-            message = "⚠️ Access denied. Your account may not have permission to use this Plugin.";
+        	error = "⚠️ Access denied. Your account may not have permission to use this Plugin."  + responseCode;
             break;
         case 404:
-            message = "🔍 API endpoint not found. Check the Koha server URL.";
+        	error = "🔍 API endpoint not found. Check the Koha server URL."  + responseCode;
             break;
         case 500:
-            message = "💥 Koha server error. Try again later.";
+        	error = "💥 Koha server error. Try again later."  + responseCode;
             break;
         case -1:
-            message = "🌐 Could not connect to Koha server. Please check the network or SSL settings.";
+        	error = "🌐 Could not connect to Koha server. Please check the network or SSL settings."  + responseCode;
             break;
         case -2:
-            message = "❗ Invalid API URL format.";
+        	error = "❗ Invalid API URL format." + responseCode;
             break;
         default:
-            message = "⚠️ Unexpected response code: " + responseCode;
+        	error = "⚠️ Unexpected response code: " + responseCode;
             break;
     }
 

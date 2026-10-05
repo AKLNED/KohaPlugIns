@@ -55,7 +55,7 @@ if (session.getAttribute("kohaUserid") == null) {
 						<div class="form-row"><label for="category">Category:</label> <select name="category"
 							id="category">
 							<option value="UG">Undergraduate Student</option>
-							<option value="PG">Postgraduate Student</option>
+							<!--<option value="PG">Postgraduate Student</option>-->
 							<option value="EMP">Faculty/Employee</option>
 						</select></div>
 						<div class="form-row"> <label for="studentId">Member ID/ QR Code:</label> <input

@@ -141,7 +141,7 @@ public class KohaPatronFunctionService {
 
             if (rs.next()) {
                 int val = rs.getInt(1);
-                return 1;
+                return val;
             }
 
             return 0;

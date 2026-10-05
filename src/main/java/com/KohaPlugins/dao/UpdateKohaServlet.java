@@ -72,8 +72,8 @@ public class UpdateKohaServlet extends HttpServlet {
             }
         }
 
-        //String apiUrl = "http://seakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
-        String apiUrl = "https://eakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
+        String apiUrl = "http://seakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
+        //String apiUrl = "https://eakl.neduet.edu.pk/api/v1/patrons/" + patronId + "/extended_attributes";
 
         //String token;
         try {
@@ -120,10 +120,10 @@ public class UpdateKohaServlet extends HttpServlet {
             if (responseCode >= 200 && responseCode < 300) {
                 // Success: Set message and redirect to patron page on Koha
                 
-            	//    String kohaUrl = "http://seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
+            	    String kohaUrl = "http://seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
                  //   response.sendRedirect(kohaUrl);
             	//String kohaUrl = "http://www.seakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
-            	String kohaUrl = "https://eakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
+            	//String kohaUrl = "https://eakl.neduet.edu.pk:8001/cgi-bin/koha/members/moremember.pl?borrowernumber=" + patronId;
                 response.setContentType("text/html;charset=UTF-8");
                 PrintWriter htmlOut = response.getWriter();
                 htmlOut.println("<!DOCTYPE html>");
