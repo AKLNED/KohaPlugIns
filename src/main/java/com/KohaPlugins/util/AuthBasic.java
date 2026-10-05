@@ -33,7 +33,7 @@ public class AuthBasic {
     }
     
  // New method: check credentials by making a simple API call
-    public static boolean validateKohaCredentials() {
+    public static int validateKohaCredentials() {
         try {
             //String testUrl = "http://www.seakl.neduet.edu.pk/api/v1/libraries";
             String testUrl = "https://eakl.neduet.edu.pk/api/v1/libraries";
@@ -49,17 +49,17 @@ public class AuthBasic {
         	} catch (URISyntaxException e) {
         	    // Handle invalid URI (e.g., log or return an error)
         	    e.printStackTrace();
-        	    return false; // or whatever is appropriate for your method
+        	    return -2; // Invalid URI
         	}
         	  	
 
             int responseCode = conn.getResponseCode();
             conn.disconnect();
             // Koha API returns 200 for success, 401 for unauthorized
-            return (responseCode == 200);
+            return responseCode;
         } catch (IOException e) {
-            // Could not connect, treat as auth failure
-            return false;
+            // Could not connect, Connection or IO error
+            return -1;
         }
     }
 }

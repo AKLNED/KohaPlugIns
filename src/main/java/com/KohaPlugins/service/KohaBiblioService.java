@@ -9,6 +9,8 @@ import java.io.*;
 //import java.net.HttpURLConnection;
 //import java.net.URI;
 //import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +29,13 @@ public class KohaBiblioService {
             try {
                 // Call Koha API
                 //String url = "http://www.seakl.neduet.edu.pk/api/v1/items?external_id=" + barcode.trim();
-                String url = "https://eakl.neduet.edu.pk/api/v1/items?external_id=" + barcode.trim();
+//                String url = "https://eakl.neduet.edu.pk/api/v1/items?external_id=" + barcode.trim();
+//                String url = "https://eakl.neduet.edu.pk/api/v1/items?q={"external_id":"45698"}";
+             // Build the API Call
+            	String query = String.format("{\"external_id\":\"%s\"}", barcode.trim());
+            	String encodedQuery = URLEncoder.encode(query, "UTF-8");
+
+            	String url = "https://eakl.neduet.edu.pk/api/v1/items?q=" + encodedQuery;
 
                 URI uri = new URI(url);
                 HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();

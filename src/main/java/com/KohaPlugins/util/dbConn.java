@@ -28,8 +28,9 @@ public class dbConn {
     	// Note: With ojdbc8, the driver class is "oracle.jdbc.OracleDriver"
         String url = "jdbc:oracle:thin:@192.168.14.199:1521:dev";  // Replace with Oracle database details
     	//String url = "jdbc:oracle:thin:@//192.168.14.199:1521/dev"; // for service name instead of SID
-    	String user = "siraj";
+        String user = "siraj";
         String password = "ora13ned";
+        
 
         // Load the Oracle driver
         Class.forName("oracle.jdbc.OracleDriver");
@@ -37,4 +38,6 @@ public class dbConn {
         // Establish and return the Oracle connection
         return DriverManager.getConnection(url, user, password);
     }
+    
+    
 }

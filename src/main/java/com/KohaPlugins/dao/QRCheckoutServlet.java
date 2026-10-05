@@ -27,37 +27,64 @@ public class QRCheckoutServlet extends HttpServlet {
         String error = null;
         String memberId = null;
 
-        /*if (qrInput != null && !qrInput.trim().isEmpty()) {
-            String value = qrInput.trim();
-            String baseUrl = "https://pl.neduet.edu.pk/qrapp/qrapp.jsp?";
-            if (value.matches("^\\d{3,7}$")) {
-                memberId = value;
-            } else if (value.startsWith(baseUrl)) {
-                String param = value.contains("param=") ? value.split("param=")[1] : "";
-                if (value.endsWith("S")) {
-                    String[] parts = param.split("R");
-                    if (parts.length > 1) {
-                        memberId = parts[0];
-                        if (memberId.length() > 7) {
-                            memberId = memberId.substring(memberId.length() - 7);
-                        }
-                    }
-                } else if (value.endsWith("P")) {
-                    String[] parts = param.split("i");
-                    if (parts.length > 1) {
-                        memberId = parts[0];
-                        if (memberId.length() > 7) {
-                            memberId = memberId.substring(memberId.length() - 7);
-                        }
-                    }
-                }
-            }*/
         
         if (qrInput != null && !qrInput.trim().isEmpty()) {
             String value = qrInput.trim();
 
-            // Accept short numeric codes (3-7 digits) as before
+            
+         // Accept short numeric codes (3-7 digits) as before
             if (value.matches("^\\d{3,7}$")) {
+                memberId = value;
+            } else {
+                String baseUrl = "https://pl.neduet.edu.pk/qrapp/index.jsp?";
+                // Require input to start with the base URL AND end with 'S' or 'P'
+                if (value.startsWith(baseUrl)) {
+                    // Regex matches ([?&])param=([^&]+)
+                    // Group 2 directly captures the value of 'param' up to the next '&' or end of string
+                    java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("[?&]param=([^&]+)");
+                    java.util.regex.Matcher matcher = pattern.matcher(value);
+
+                    if (matcher.find()) {
+                        String paramValue = matcher.group(1); // e.g. "1144903983A78127S"
+
+                        // Check if param value itself ends with 'S' or 'P'
+                        if (paramValue.endsWith("S") || paramValue.endsWith("P")) {
+                            final int startIndex = 3; // 4th character (0-based index 3)
+                            final int requiredLength = 7;
+
+                            // Ensure paramValue has enough characters to extract the 7-digit candidate
+                            if (paramValue.length() >= startIndex + requiredLength) {
+                                String candidate = paramValue.substring(startIndex, startIndex + requiredLength);
+                                // Candidate must be exactly 7 contiguous digits
+                                if (candidate.matches("\\d{7}")) {
+                                	// Prepend 'P' if paramValue ends with 'P', otherwise keep candidate as-is
+                                    if (paramValue.endsWith("P")) {
+                                        memberId = "P" + candidate; // e.g. "P4903983"
+                                    } else {
+                                        memberId = candidate;      // e.g. "4903983"
+                                    }
+                                } else {
+                                    memberId = null;
+                                }
+                            } else {
+                                memberId = null;
+                            }
+                        } else {
+                            // paramValue does not end with 'S' or 'P'
+                            memberId = null;
+                        }
+                    } else {
+                        // 'param=' parameter not found in URL
+                        memberId = null;
+                    }
+                } else {
+                    // Input does not start with the base URL
+                    memberId = null;
+                }
+            }
+            
+            // Accept short numeric codes (3-7 digits) as before
+            /*if (value.matches("^\\d{3,7}$")) {
                 memberId = value;
             } else {
                 String baseUrl = "https://pl.neduet.edu.pk/qrapp/qrapp.jsp?";
@@ -90,9 +117,11 @@ public class QRCheckoutServlet extends HttpServlet {
                     // input is not a recognized URL (either wrong base or doesn't end with S/P) -> invalid
                     memberId = null;
                 }
-            }
+            }*/
+            
+            
 			/*
-			 * } else { memberId = null; }
+			 } else { memberId = null; }
 			 */
         
 

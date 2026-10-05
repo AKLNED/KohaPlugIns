@@ -1,5 +1,7 @@
+
 <!-- Search Section -->
     <section class="search-section">
+    <h2 class="search-title">Explore library Holdings</h2>
         <form name="searchform" method="get" action="https://eakl.neduet.edu.pk/cgi-bin/koha/opac-search.pl" id="searchform">
             
             <select name="idx" id="masthead_search">

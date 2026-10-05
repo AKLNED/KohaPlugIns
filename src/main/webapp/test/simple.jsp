@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/consolidated-styles.css">
 </head>
 <body>
 <% out.println(5*4); %>
